@@ -10,6 +10,7 @@
         <variable
             name="filterItem"
             type="org.dhis2.commons.filters.EnrollmentStatusFilter" />
+
         <variable
             name="workingListScope"
             type="androidx.databinding.ObservableField&lt;org.dhis2.commons.filters.data.WorkingListScope&gt;" />
@@ -29,14 +30,17 @@
             app:filterItem="@{filterItem}"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <include
-            android:id="@+id/filterEnrollmentStatus"
-            layout="@layout/filter_enrollment_status"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:filterType="@{filterItem.type}"
-            app:filterItem="@{filterItem}"
-            app:layout_constraintTop_toBottomOf="@id/filterLayout" />
+            app:layout_constraintTop_toBottomOf="@id/filterLayout">
+
+            <include
+                android:id="@+id/filterEnrollmentStatus"
+                layout="@layout/filter_enrollment_status"
+                app:filterItem="@{filterItem}"
+                app:filterType="@{filterItem.type}" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

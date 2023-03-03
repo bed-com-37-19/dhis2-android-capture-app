@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -24,14 +23,16 @@
             app:filterItem="@{filterItem}"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <include
-            android:id="@+id/filterState"
-            layout="@layout/filter_state"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:filterType="@{filterItem.type}"
-            app:filterItem="@{filterItem}"
-            app:layout_constraintTop_toBottomOf="@id/filterLayout" />
+            app:layout_constraintTop_toBottomOf="@id/filterLayout">
+            <include
+                android:id="@+id/filterState"
+                layout="@layout/filter_state"
+                app:filterItem="@{filterItem}"
+                app:filterType="@{filterItem.type}" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

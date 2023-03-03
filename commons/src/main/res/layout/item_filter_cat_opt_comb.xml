@@ -23,14 +23,17 @@
             app:filterCount="@{filterItem.observeCount()}"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <include
-            android:id="@+id/filterCatOptComb"
-            layout="@layout/filter_cat_opt_comb"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:filterType="@{filterItem.type}"
-            app:filterItem="@{filterItem}"
-            app:layout_constraintTop_toBottomOf="@id/filterLayout" />
+            app:layout_constraintTop_toBottomOf="@id/filterLayout">
+            <include
+                android:id="@+id/filterCatOptComb"
+                layout="@layout/filter_cat_opt_comb"
+                app:filterType="@{filterItem.type}"
+                app:filterItem="@{filterItem}" />
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

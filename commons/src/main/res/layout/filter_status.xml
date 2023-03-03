@@ -27,24 +27,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:background="@color/filter_alpha"
         android:visibility="gone"
         app:clipAllCorners="@{8}"
         app:expand_view="@{filterItem.openFilter == filterItem.type}"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="@drawable/inner_shadow_top_straight"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/inner_shadow_bottom_straight" />
 
         <LinearLayout
             android:layout_width="match_parent"

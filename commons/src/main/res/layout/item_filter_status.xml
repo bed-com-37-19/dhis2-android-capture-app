@@ -34,15 +34,17 @@
             app:filterItem="@{filterItem}"
             app:layout_constraintTop_toBottomOf="parent" />
 
-        <include
-            android:id="@+id/filterStatus"
-            layout="@layout/filter_status"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:filterItem="@{filterItem}"
-            app:filterType="@{filterItem.type}"
-            app:layout_constraintTop_toBottomOf="@id/filterLayout"
-            app:programType="@{filterItem.programType}" />
+            app:layout_constraintTop_toBottomOf="@id/filterLayout">
 
+            <include
+                android:id="@+id/filterStatus"
+                layout="@layout/filter_status"
+                app:filterItem="@{filterItem}"
+                app:filterType="@{filterItem.type}"
+                app:programType="@{filterItem.programType}" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
