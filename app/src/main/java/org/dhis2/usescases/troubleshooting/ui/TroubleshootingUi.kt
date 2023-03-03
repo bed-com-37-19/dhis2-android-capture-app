@@ -187,28 +187,12 @@ fun LanguageSelector(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(84.dp)
+                .padding(horizontal = 16.dp)
                 .background(
                     color = colorResource(id = R.color.form_field_background),
                     shape = RoundedCornerShape(6.dp)
                 )
         ) {
-            Image(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .fillMaxWidth(),
-                painter = painterResource(id = R.drawable.inner_shadow_top),
-                contentDescription = "",
-                contentScale = ContentScale.FillWidth
-            )
-            Image(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth(),
-                painter = painterResource(id = R.drawable.inner_shadow_bottom),
-                contentDescription = "",
-                alignment = Alignment.BottomCenter,
-                contentScale = ContentScale.FillWidth
-            )
             Row(
                 modifier = Modifier
                     .clickable {
@@ -269,30 +253,12 @@ fun ProgramRuleConfigurationItemList(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .padding(horizontal = 16.dp)
             .background(
                 color = colorResource(id = R.color.form_field_background),
                 shape = RoundedCornerShape(6.dp)
             )
     ) {
-        if (visible) {
-            Image(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .fillMaxWidth(),
-                painter = painterResource(id = R.drawable.inner_shadow_top),
-                contentDescription = "",
-                contentScale = ContentScale.FillWidth
-            )
-            Image(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth(),
-                painter = painterResource(id = R.drawable.inner_shadow_bottom),
-                contentDescription = "",
-                alignment = Alignment.BottomCenter,
-                contentScale = ContentScale.FillWidth
-            )
-        }
         Column {
             AnimatedVisibility(
                 visible = visible && configurationErrors == null,
