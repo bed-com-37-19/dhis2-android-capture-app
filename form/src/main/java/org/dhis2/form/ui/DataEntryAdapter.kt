@@ -5,9 +5,12 @@ import android.text.TextWatcher
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMarginsRelative
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
+import org.dhis2.commons.bindings.dp
 import org.dhis2.form.R
 import org.dhis2.form.model.FieldUiModel
 import org.dhis2.form.model.SectionUiModelImpl
@@ -70,8 +73,16 @@ class DataEntryAdapter(private val searchStyle: Boolean) :
     override fun onBindViewHolder(holder: FormViewHolder, position: Int) {
         if (getItem(position) is SectionUiModelImpl) {
             updateSectionData(position, false)
+        } else {
+            updateMargins(holder)
         }
         holder.bind(getItem(position), this, textWatcher, coordinateWatcher)
+    }
+
+    private fun updateMargins(holder: FormViewHolder) {
+        holder.itemView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            this.updateMarginsRelative(start = 8.dp, end = 8.dp)
+        }
     }
 
     fun updateSectionData(position: Int, isHeader: Boolean) {

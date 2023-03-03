@@ -21,12 +21,12 @@
             android:id="@+id/sectionButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:minHeight="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:onClick="@{() -> item.setSelected() }"
-            android:insetBottom="0dp"
             android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minHeight="40dp"
+            android:onClick="@{() -> item.setSelected() }"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="?whiteBgTextColor"
@@ -37,18 +37,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:textColor="@color/colorPrimary" />
-
-        <ImageView
-            android:id="@+id/shadow_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@color/form_field_background"
-            android:scaleType="fitXY"
-            android:src="@drawable/inner_shadow_bottom"
-            android:visibility="@{ item.showBottomShadow() ? View.VISIBLE : View.GONE }"
-            app:layout_constraintTop_toBottomOf="@id/sectionButton"
-            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/section_details"
@@ -61,7 +49,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="15dp"
             android:visibility="@{item.isClosingSection() ? View.GONE : View.VISIBLE}"
-            app:layout_constraintTop_toBottomOf="@id/shadow_bottom">
+            app:layout_constraintTop_toBottomOf="@id/sectionButton">
 
             <ImageView
                 android:layout_width="0dp"
@@ -216,17 +204,6 @@
             android:visibility="@{item.isClosingSection() ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/section_details"
             app:setLastSectionHeight="@{ item.lastPositionShouldChangeHeight() }" />
-
-        <ImageView
-            android:id="@+id/shadow_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/form_field_background"
-            android:scaleType="fitXY"
-            android:src="@drawable/inner_shadow_top"
-            android:visibility="@{item.isOpen() ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@id/last_section_details"
-            tools:visibility="visible" />
 
         <View
             android:id="@+id/shadow_end"
