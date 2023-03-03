@@ -1,5 +1,6 @@
 package org.dhis2.usescases.teiDashboard.dashboardfragments.teidata.teievents
 
+import android.graphics.Color
 import android.view.View
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ internal class StageViewHolder(
 
     fun bind(eventItem: EventViewModel) {
         val stage = eventItem.stage!!
-
+        binding.stageCard.setCardBackgroundColor(Color.WHITE)
         binding.programStageName.text = stage.displayName()
         binding.programStageName.post {
             binding.programStageName.isSelected = true

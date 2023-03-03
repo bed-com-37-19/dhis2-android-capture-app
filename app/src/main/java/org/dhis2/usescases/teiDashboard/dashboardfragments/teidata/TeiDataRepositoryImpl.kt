@@ -199,8 +199,6 @@ class TeiDataRepositoryImpl(
                     )
                     if (isSelected) {
                         checkEventStatus(eventList).forEachIndexed { index, event ->
-                            val showTopShadow = index == 0
-                            val showBottomShadow = index == eventList.size - 1
                             eventViewModels.add(
                                 EventViewModel(
                                     EventViewModelType.EVENT,
@@ -219,8 +217,6 @@ class TeiDataRepositoryImpl(
                                         programStage.uid()
                                     ),
                                     groupedByStage = true,
-                                    showTopShadow = showTopShadow,
-                                    showBottomShadow = showBottomShadow,
                                     displayDate = periodUtils.getPeriodUIString(
                                         programStage.periodType() ?: PeriodType.Daily,
                                         event.eventDate() ?: event.dueDate()!!, Locale.getDefault()

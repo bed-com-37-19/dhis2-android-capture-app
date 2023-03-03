@@ -17,7 +17,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
-import java.util.ArrayList
 import kotlin.math.pow
 import org.dhis2.commons.R
 
@@ -124,6 +123,92 @@ fun View.clipWithAllRoundedCorners(curvedRadio: Int = 16.dp) {
         }
         clipToOutline = true
     }
+}
+
+enum class RoundedCornerMode {
+    TOP, BOTTOM, LEFT, RIGHT, TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT, ALL, NONE
+}
+
+fun View.clipWithRoundedCorners(
+    curvedRadio: Int = 16.dp,
+    mode: RoundedCornerMode
+) {
+    outlineProvider = if (mode == RoundedCornerMode.NONE) {
+        ViewOutlineProvider.BACKGROUND
+    } else {
+        object : ViewOutlineProvider() {
+            override fun getOutline(view: View, outline: Outline) {
+                val left = 0
+                val top = 0
+                val right = view.width
+                val bottom = view.height
+                val cornerRadius = curvedRadio.toFloat()
+
+                when (mode) {
+                    RoundedCornerMode.ALL ->
+                        outline.setRoundRect(left, top, right, bottom, cornerRadius)
+                    RoundedCornerMode.TOP -> outline.setRoundRect(
+                        left,
+                        top,
+                        right,
+                        bottom + cornerRadius.toInt(),
+                        cornerRadius
+                    )
+                    RoundedCornerMode.BOTTOM -> outline.setRoundRect(
+                        left,
+                        top - cornerRadius.toInt(),
+                        right,
+                        bottom,
+                        cornerRadius
+                    )
+                    RoundedCornerMode.LEFT -> outline.setRoundRect(
+                        left,
+                        top,
+                        right + cornerRadius.toInt(),
+                        bottom,
+                        cornerRadius
+                    )
+                    RoundedCornerMode.RIGHT -> outline.setRoundRect(
+                        left - cornerRadius.toInt(),
+                        top,
+                        right,
+                        bottom,
+                        cornerRadius
+                    )
+                    RoundedCornerMode.TOP_LEFT -> outline.setRoundRect(
+                        left,
+                        top,
+                        right + cornerRadius.toInt(),
+                        bottom + cornerRadius.toInt(),
+                        cornerRadius
+                    )
+                    RoundedCornerMode.BOTTOM_LEFT -> outline.setRoundRect(
+                        left,
+                        top - cornerRadius.toInt(),
+                        right + cornerRadius.toInt(),
+                        bottom,
+                        cornerRadius
+                    )
+                    RoundedCornerMode.TOP_RIGHT -> outline.setRoundRect(
+                        left - cornerRadius.toInt(),
+                        top,
+                        right,
+                        bottom + cornerRadius.toInt(),
+                        cornerRadius
+                    )
+                    RoundedCornerMode.BOTTOM_RIGHT -> outline.setRoundRect(
+                        left - cornerRadius.toInt(),
+                        top - cornerRadius.toInt(),
+                        right,
+                        bottom,
+                        cornerRadius
+                    )
+                    RoundedCornerMode.NONE-> {/*Do nothing*/}
+                }
+            }
+        }
+    }
+    clipToOutline = true
 }
 
 fun HorizontalScrollView.scrollToPosition(viewTag: String) {

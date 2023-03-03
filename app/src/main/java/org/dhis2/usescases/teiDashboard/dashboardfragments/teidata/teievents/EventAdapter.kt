@@ -2,6 +2,9 @@ package org.dhis2.usescases.teiDashboard.dashboardfragments.teidata.teievents
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMarginsRelative
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.Flowable
 import io.reactivex.processors.FlowableProcessor
 import io.reactivex.processors.PublishProcessor
+import org.dhis2.Bindings.dp
 import org.dhis2.R
+import org.dhis2.commons.bindings.RoundedCornerMode
+import org.dhis2.commons.bindings.clipWithRoundedCorners
 import org.dhis2.commons.data.EventViewModel
 import org.dhis2.commons.data.EventViewModelType.EVENT
 import org.dhis2.commons.data.EventViewModelType.STAGE
@@ -97,9 +103,7 @@ class EventAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is EventViewHolder -> {
-                holder.bind(
-                    getItem(position), enrollment
-                ) {
+                holder.bind(getItem(position), enrollment) {
                     getItem(holder.getAdapterPosition()).toggleValueList()
                     notifyItemChanged(holder.getAdapterPosition())
                 }
@@ -108,6 +112,77 @@ class EventAdapter(
                 holder.bind(getItem(position))
             }
         }
+        val margin = when (holder) {
+            is EventViewHolder -> 8.dp
+            else -> 0.dp
+        }
+        val radio = when (holder) {
+            is EventViewHolder -> 8.dp
+            else -> 0.dp
+        }
+        val mode = when {
+            holder is StageViewHolder -> RoundedCornerMode.NONE
+            holder is EventViewHolder
+                    && getItem(holder.bindingAdapterPosition).groupedByStage == false
+                    && shouldDisplayAllRoundedCorners(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.ALL
+            holder is EventViewHolder
+                    && getItem(holder.bindingAdapterPosition).groupedByStage == false
+                    && shouldDisplayTopRoundedCorners(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.TOP
+            holder is EventViewHolder
+                    && getItem(holder.bindingAdapterPosition).groupedByStage == false
+                    && shouldDisplayBottomRoundedCorners(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.BOTTOM
+            else ->
+                RoundedCornerMode.NONE
+        }
+        holder.itemView.updateLayoutParams<MarginLayoutParams> {
+            this.updateMarginsRelative(start = margin, end = margin)
+        }
+        holder.itemView.clipWithRoundedCorners(
+            curvedRadio = radio,
+            mode = mode
+        )
+    }
+
+    private fun shouldDisplayTopRoundedCorners(holderPosition: Int): Boolean {
+        val prevPosition = holderPosition - 1
+        val nextPosition = holderPosition + 1
+        val isFirstPosition = holderPosition == 0
+        val isAfterSection = prevPosition.takeIf { it >= 0 }?.let {
+            getItemViewType(prevPosition) == STAGE.ordinal
+        } ?: true
+        val isBeforeEvent = nextPosition.takeIf { it < itemCount }?.let {
+            getItemViewType(nextPosition) == EVENT.ordinal
+        } ?: true
+        return isFirstPosition or (isAfterSection and isBeforeEvent)
+    }
+
+    private fun shouldDisplayBottomRoundedCorners(holderPosition: Int): Boolean {
+        val prevPosition = holderPosition - 1
+        val nextPosition = holderPosition + 1
+        val isLastPosition = holderPosition == itemCount - 1
+        val isAfterEvent = prevPosition.takeIf { it >= 0 }?.let {
+            getItemViewType(prevPosition) == EVENT.ordinal
+        } ?: true
+        val isBeforeSection = nextPosition.takeIf { it < itemCount }?.let {
+            getItemViewType(holderPosition + 1) == STAGE.ordinal
+        } ?: true
+        return isLastPosition or (isAfterEvent and isBeforeSection)
+    }
+
+    private fun shouldDisplayAllRoundedCorners(holderPosition: Int): Boolean {
+        val prevPosition = holderPosition - 1
+        val nextPosition = holderPosition + 1
+        val isOnlyItem = itemCount == 1
+        val isAfterSection = prevPosition.takeIf { it >= 0 }?.let {
+            getItemViewType(prevPosition) == STAGE.ordinal
+        } ?: true
+        val isBeforeSection = nextPosition.takeIf { it < itemCount }?.let {
+            getItemViewType(nextPosition) == STAGE.ordinal
+        } ?: true
+        return isOnlyItem or (isAfterSection && isBeforeSection)
     }
 
     override fun getItemId(position: Int): Long {

@@ -4,19 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/stageCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="0dp"
         app:rippleColor="@color/rippleColor"
-        tools:background="@color/form_field_background">
+        app:cardBackgroundColor="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/stageCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="56dp"
-            android:background="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/shadow_bottom">
+            android:minHeight="56dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/startGuideline"
@@ -104,8 +102,6 @@
                     app:srcCompat="@drawable/ic_add_accent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

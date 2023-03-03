@@ -73,7 +73,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         if (eventModel.getGroupedByStage()) {
             binding.eventCard.setCardBackgroundColor(
                     ContextCompat.getColor(itemView.getContext(),
-                            program.programType() == ProgramType.WITH_REGISTRATION ? R.color.form_field_background : R.color.white));
+                            program.programType() == ProgramType.WITH_REGISTRATION ? R.color.red_060/*form_field_background*/ : R.color.white));
             binding.programStageName.setVisibility(View.GONE);
             binding.composeStageIcon.setVisibility(View.INVISIBLE);
             binding.stageIconStatusImage.setVisibility(View.INVISIBLE);
@@ -121,8 +121,6 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
                     break;
             }
         });
-
-        showShadows(eventModel);
     }
 
     private void setEventValueLayout(EventViewModel eventModel, @NotNull Function0<Unit> toggleList) {
@@ -204,10 +202,5 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
                 binding.eventInfo.setText(stringBuilder);
             }
         }
-    }
-
-    public void showShadows(EventViewModel eventViewModel) {
-        binding.shadowTop.setVisibility(eventViewModel.getGroupedByStage() && eventViewModel.getShowTopShadow() ? View.VISIBLE : View.GONE);
-        binding.shadowBottom.setVisibility(eventViewModel.getGroupedByStage() && eventViewModel.getShowBottomShadow() ? View.VISIBLE : View.GONE);
     }
 }

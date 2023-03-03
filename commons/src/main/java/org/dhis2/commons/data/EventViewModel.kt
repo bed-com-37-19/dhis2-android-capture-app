@@ -17,8 +17,6 @@ data class EventViewModel(
     val dataElementValues: List<Pair<String, String?>>?,
     val groupedByStage: Boolean? = false,
     var valueListIsOpen: Boolean = false,
-    val showTopShadow: Boolean = false,
-    val showBottomShadow: Boolean = false,
     val displayDate: String?
 ) {
     fun toggleValueList() {
