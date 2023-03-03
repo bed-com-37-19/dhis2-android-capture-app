@@ -73,7 +73,7 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         if (eventModel.getGroupedByStage()) {
             binding.eventCard.setCardBackgroundColor(
                     ContextCompat.getColor(itemView.getContext(),
-                            program.programType() == ProgramType.WITH_REGISTRATION ? R.color.red_060/*form_field_background*/ : R.color.white));
+                            program.programType() == ProgramType.WITH_REGISTRATION ? R.color.form_field_background : R.color.white));
             binding.programStageName.setVisibility(View.GONE);
             binding.composeStageIcon.setVisibility(View.INVISIBLE);
             binding.stageIconStatusImage.setVisibility(View.INVISIBLE);
