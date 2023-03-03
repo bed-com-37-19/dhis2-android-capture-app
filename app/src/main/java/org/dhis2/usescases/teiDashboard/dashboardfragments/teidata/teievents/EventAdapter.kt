@@ -113,7 +113,7 @@ class EventAdapter(
             }
         }
         val margin = when (holder) {
-            is EventViewHolder -> 8.dp
+            is EventViewHolder -> 16.dp
             else -> 0.dp
         }
         val radio = when (holder) {

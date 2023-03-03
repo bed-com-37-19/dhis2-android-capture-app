@@ -81,7 +81,7 @@ class DataEntryAdapter(private val searchStyle: Boolean) :
 
     private fun updateMargins(holder: FormViewHolder) {
         holder.itemView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            this.updateMarginsRelative(start = 8.dp, end = 8.dp)
+            this.updateMarginsRelative(start = 16.dp, end = 16.dp)
         }
     }
 
