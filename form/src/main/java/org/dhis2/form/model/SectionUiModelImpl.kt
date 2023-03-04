@@ -45,7 +45,7 @@ data class SectionUiModelImpl(
 ) : FieldUiModel {
 
     private var sectionNumber: Int = 0
-    private var showBottomShadow: Boolean = false
+    private var showNextButton: Boolean = false
     private var lastPositionShouldChangeHeight: Boolean = false
 
     private var callback: FieldUiModel.Callback? = null
@@ -53,9 +53,6 @@ data class SectionUiModelImpl(
     fun hasToShowDescriptionIcon(isTitleEllipsed: Boolean): Boolean {
         return description != null && description.isNotEmpty() || isTitleEllipsed
     }
-
-    fun isClosingSection(): Boolean = uid == CLOSING_SECTION_UID
-
     fun hasErrorAndWarnings(): Boolean = errors > 0 && warnings > 0
 
     fun hasNotAnyErrorOrWarning(): Boolean = errors == 0 && warnings == 0
@@ -85,16 +82,12 @@ data class SectionUiModelImpl(
         return sectionNumber
     }
 
-    fun setShowBottomShadow(showBottomShadow: Boolean) {
-        this.showBottomShadow = showBottomShadow
-    }
-
-    fun showBottomShadow(): Boolean {
-        return showBottomShadow
+    fun setShowNextButton(showNextButton: Boolean) {
+        this.showNextButton = showNextButton
     }
 
     fun showNextButton(): Boolean {
-        return showBottomShadow && !isClosingSection()
+        return showNextButton
     }
 
     fun setLastSectionHeight(lastPositionShouldChangeHeight: Boolean) {
@@ -193,7 +186,7 @@ data class SectionUiModelImpl(
     override fun equals(item: FieldUiModel): Boolean {
         item as SectionUiModelImpl
         return super.equals(item) &&
-            this.showBottomShadow == item.showBottomShadow &&
+            this.showNextButton == item.showNextButton &&
             this.lastPositionShouldChangeHeight == item.lastPositionShouldChangeHeight &&
             this.isOpen == item.isOpen &&
             this.totalFields == item.totalFields &&
@@ -205,6 +198,5 @@ data class SectionUiModelImpl(
 
     companion object {
         const val SINGLE_SECTION_UID = "SINGLE_SECTION_UID"
-        const val CLOSING_SECTION_UID = "closing_section"
     }
 }

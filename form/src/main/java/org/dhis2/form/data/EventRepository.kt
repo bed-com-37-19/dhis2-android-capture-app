@@ -55,7 +55,6 @@ class EventRepository(
                 }
             }.map { list ->
                 val fields = list.toMutableList()
-                fields.add(fieldFactory.createClosingSection())
                 fields
             }.toFlowable()
     }

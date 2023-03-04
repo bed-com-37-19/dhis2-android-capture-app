@@ -17,26 +17,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sectionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="40dp"
-            android:onClick="@{() -> item.setSelected() }"
-            android:text="@string/next"
-            android:textAllCaps="false"
-            android:textColor="?whiteBgTextColor"
-            android:textSize="14sp"
-            android:visibility="@{ item.showNextButton() ? View.VISIBLE : View.GONE }"
-            app:backgroundTint="@color/white"
-            app:cornerRadius="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:textColor="@color/colorPrimary" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/form_field_background">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="40dp"
+                android:onClick="@{() -> item.setSelected() }"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="?whiteBgTextColor"
+                android:textSize="14sp"
+                android:visibility="@{ item.showNextButton() ? View.VISIBLE : View.GONE }"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:textColor="@color/colorPrimary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/section_details"
@@ -48,7 +60,6 @@
             android:onClick="@{() -> item.setSelected() }"
             android:paddingStart="16dp"
             android:paddingEnd="15dp"
-            android:visibility="@{item.isClosingSection() ? View.GONE : View.VISIBLE}"
             app:layout_constraintTop_toBottomOf="@id/sectionButton">
 
             <ImageView
@@ -193,26 +204,6 @@
                 app:srcCompat="@drawable/ic_arrow_up_sections" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/last_section_details"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/white"
-            android:paddingStart="16dp"
-            android:paddingEnd="15dp"
-            android:visibility="@{item.isClosingSection() ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@id/section_details"
-            app:setLastSectionHeight="@{ item.lastPositionShouldChangeHeight() }" />
-
-        <View
-            android:id="@+id/shadow_end"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@drawable/shadow"
-            android:visibility="@{item.isClosingSection() ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@id/last_section_details"
-            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

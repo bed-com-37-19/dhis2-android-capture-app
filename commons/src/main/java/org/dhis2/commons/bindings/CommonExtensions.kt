@@ -203,7 +203,7 @@ fun View.clipWithRoundedCorners(
                         bottom,
                         cornerRadius
                     )
-                    RoundedCornerMode.NONE-> {/*Do nothing*/}
+                    RoundedCornerMode.NONE -> { /*Do nothing*/ }
                 }
             }
         }

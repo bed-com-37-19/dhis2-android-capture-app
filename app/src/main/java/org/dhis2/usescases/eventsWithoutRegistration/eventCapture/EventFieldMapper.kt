@@ -37,10 +37,6 @@ class EventFieldMapper(
             handleSection(fields, sectionList, it, currentSection)
         }
 
-        if (eventSectionModels.first().sectionName() == "NO_SECTION") {
-            finalFieldList.add(fieldFactory.createClosingSection())
-        }
-
         val sections = finalFieldList.filterIsInstance<SectionUiModelImpl>()
 
         sections.takeIf { showErrors.first || showErrors.second }?.forEach { section ->

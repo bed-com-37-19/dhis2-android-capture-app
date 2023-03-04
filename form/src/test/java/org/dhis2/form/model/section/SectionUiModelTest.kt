@@ -2,7 +2,6 @@ package org.dhis2.form.model.section
 
 import androidx.databinding.ObservableField
 import org.dhis2.form.model.SectionUiModelImpl
-import org.dhis2.form.model.SectionUiModelImpl.Companion.CLOSING_SECTION_UID
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -60,46 +59,6 @@ class SectionUiModelTest {
         }
         assertFalse(sectionUiModel.showNextButton())
     }
-
-    @Test
-    fun shouldNotShowNextButtonForClosingSection() {
-        val sectionUiModel = givenClosingSectionUiModel().also {
-            it.setShowBottomShadow(true)
-        }
-        assertFalse(sectionUiModel.showNextButton())
-    }
-
-    private fun givenClosingSectionUiModel() = SectionUiModelImpl(
-        CLOSING_SECTION_UID,
-        1,
-        null,
-        false,
-        null,
-        false,
-        null,
-        false,
-        "",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        false,
-        1,
-        1,
-        0,
-        0,
-        "",
-        ObservableField()
-    )
 
     private fun givenSectionUiModelWithNullDescription() = SectionUiModelImpl(
         "",

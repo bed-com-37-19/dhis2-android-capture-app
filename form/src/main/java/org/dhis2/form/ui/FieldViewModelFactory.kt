@@ -49,6 +49,4 @@ interface FieldViewModelFactory {
         completedFields: Int,
         rendering: String?
     ): FieldUiModel
-
-    fun createClosingSection(): FieldUiModel
 }

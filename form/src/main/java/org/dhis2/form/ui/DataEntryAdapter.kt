@@ -5,12 +5,16 @@ import android.text.TextWatcher
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMarginsRelative
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
+import org.dhis2.commons.bindings.RoundedCornerMode
+import org.dhis2.commons.bindings.clipWithRoundedCorners
 import org.dhis2.commons.bindings.dp
+import org.dhis2.commons.data.EventViewModelType
 import org.dhis2.form.R
 import org.dhis2.form.model.FieldUiModel
 import org.dhis2.form.model.SectionUiModelImpl
@@ -73,20 +77,87 @@ class DataEntryAdapter(private val searchStyle: Boolean) :
     override fun onBindViewHolder(holder: FormViewHolder, position: Int) {
         if (getItem(position) is SectionUiModelImpl) {
             updateSectionData(position, false)
-        } else {
-            updateMargins(holder)
         }
         holder.bind(getItem(position), this, textWatcher, coordinateWatcher)
+        updateMargins(holder)
     }
 
     private fun updateMargins(holder: FormViewHolder) {
+        val (margin, bgColor) = if (
+            searchStyle
+            || getItem(holder.bindingAdapterPosition) is SectionUiModelImpl
+            || currentList.find { it is SectionUiModelImpl } == null
+        ) {
+            Pair(0.dp, R.color.zxing_transparent)
+        } else {
+            Pair(16.dp, R.color.form_field_background)
+        }
+        val radius = if (searchStyle || getItem(holder.bindingAdapterPosition) is SectionUiModelImpl) {
+            0.dp
+        } else {
+            8.dp
+        }
+        val mode = when {
+            isSection(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.NONE
+            shouldDisplayAllRoundedCorners(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.ALL
+            shouldDisplayTopRoundedCorners(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.TOP
+            shouldDisplayBottomRoundedCorners(holder.bindingAdapterPosition) ->
+                RoundedCornerMode.BOTTOM
+            else ->
+                RoundedCornerMode.NONE
+        }
+
+        holder.itemView.clipWithRoundedCorners(curvedRadio = radius, mode = mode)
+        holder.itemView.setBackgroundColor(
+            ContextCompat.getColor(holder.itemView.context, bgColor)
+        )
         holder.itemView.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            this.updateMarginsRelative(start = 16.dp, end = 16.dp)
+            this.updateMarginsRelative(start = margin, end = margin)
         }
     }
 
+    private fun shouldDisplayTopRoundedCorners(holderPosition: Int): Boolean {
+        val prevPosition = holderPosition - 1
+        val nextPosition = holderPosition + 1
+        val isAfterSection = prevPosition.takeIf { it >= 0 }?.let {
+            isSection(prevPosition)
+        } ?: false
+        val isBeforeField = nextPosition.takeIf { it < itemCount }?.let {
+            !isSection(nextPosition)
+        } ?: false
+        return isAfterSection and isBeforeField
+    }
+
+    private fun shouldDisplayBottomRoundedCorners(holderPosition: Int): Boolean {
+        val prevPosition = holderPosition - 1
+        val nextPosition = holderPosition + 1
+        val isAfterField = prevPosition.takeIf { it >= 0 }?.let {
+            !isSection(prevPosition)
+        } ?: false
+        val isBeforeSection = nextPosition.takeIf { it < itemCount }?.let {
+            isSection(nextPosition)
+        } ?: false
+        return isAfterField and isBeforeSection
+    }
+
+    private fun shouldDisplayAllRoundedCorners(holderPosition: Int): Boolean {
+        val prevPosition = holderPosition - 1
+        val nextPosition = holderPosition + 1
+        val isOnlyItem = itemCount == 1
+        val isAfterSection = prevPosition.takeIf { it >= 0 }?.let {
+            isSection(prevPosition)
+        } ?: false
+        val isBeforeSection = nextPosition.takeIf { it < itemCount }?.let {
+            isSection(nextPosition)
+        } ?: false
+        return isOnlyItem or (isAfterSection && isBeforeSection)
+    }
+
     fun updateSectionData(position: Int, isHeader: Boolean) {
-        (getItem(position) as SectionUiModelImpl?)!!.setShowBottomShadow(
+        (getItem(position) as SectionUiModelImpl?)!!.setShowNextButton(
             !isHeader && position > 0 && getItem(
                 position - 1
             ) !is SectionUiModelImpl

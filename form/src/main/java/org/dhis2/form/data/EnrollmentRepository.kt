@@ -86,7 +86,6 @@ class EnrollmentRepository(
                     }.map { list ->
                         val fields = getEnrollmentData(program)
                         fields.addAll(list)
-                        fields.add(fieldFactory.createClosingSection())
                         fields
                     }
             }.toFlowable()

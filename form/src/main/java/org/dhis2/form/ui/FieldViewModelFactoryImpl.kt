@@ -204,38 +204,4 @@ class FieldViewModelFactoryImpl(
             currentSection
         )
     }
-
-    override fun createClosingSection(): FieldUiModel {
-        return SectionUiModelImpl(
-            SectionUiModelImpl.CLOSING_SECTION_UID,
-            layoutProvider.getLayoutForSection(),
-            null,
-            false,
-            null,
-            false,
-            null,
-            false,
-            SectionUiModelImpl.CLOSING_SECTION_UID,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            false,
-            null,
-            null,
-            null,
-            null,
-            null,
-            false,
-            0,
-            0,
-            0,
-            0,
-            SectionRenderingType.LISTING.name,
-            currentSection
-        )
-    }
 }

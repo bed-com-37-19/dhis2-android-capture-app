@@ -12,25 +12,6 @@ import org.dhis2.commons.bindings.dp
 import org.dhis2.form.databinding.FormSectionBinding
 import org.dhis2.form.model.SectionUiModelImpl
 
-@BindingAdapter("setLastSectionHeight")
-fun ConstraintLayout.setLastSectionHeight(previousSectionIsOpened: Boolean) {
-    val binding = FormSectionBinding.inflate(LayoutInflater.from(context))
-    val params = binding.lastSectionDetails.layoutParams
-    val finalHeight = if (previousSectionIsOpened) {
-        48.dp
-    } else {
-        1.dp
-    }
-    ValueAnimator.ofInt(params.height, finalHeight).apply {
-        duration = 120
-        addUpdateListener {
-            params.height = it.animatedValue as Int
-            binding.lastSectionDetails.layoutParams = params
-        }
-        start()
-    }
-}
-
 @BindingAdapter("animateArrow")
 fun ImageView.animateArrow(isSelected: Boolean) {
     val binding = FormSectionBinding.inflate(LayoutInflater.from(context))

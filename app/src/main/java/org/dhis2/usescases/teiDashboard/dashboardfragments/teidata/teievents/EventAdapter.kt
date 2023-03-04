@@ -122,16 +122,16 @@ class EventAdapter(
         }
         val mode = when {
             holder is StageViewHolder -> RoundedCornerMode.NONE
-            holder is EventViewHolder
-                    && getItem(holder.bindingAdapterPosition).groupedByStage == true
+            holder is EventViewHolder &&
+                    getItem(holder.bindingAdapterPosition).groupedByStage == true
                     && shouldDisplayAllRoundedCorners(holder.bindingAdapterPosition) ->
                 RoundedCornerMode.ALL
-            holder is EventViewHolder
-                    && getItem(holder.bindingAdapterPosition).groupedByStage == true
+            holder is EventViewHolder &&
+                    getItem(holder.bindingAdapterPosition).groupedByStage == true
                     && shouldDisplayTopRoundedCorners(holder.bindingAdapterPosition) ->
                 RoundedCornerMode.TOP
-            holder is EventViewHolder
-                    && getItem(holder.bindingAdapterPosition).groupedByStage == true
+            holder is EventViewHolder &&
+                    getItem(holder.bindingAdapterPosition).groupedByStage == true
                     && shouldDisplayBottomRoundedCorners(holder.bindingAdapterPosition) ->
                 RoundedCornerMode.BOTTOM
             else ->
