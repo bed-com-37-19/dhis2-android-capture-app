@@ -1,14 +1,11 @@
 package org.dhis2.form.ui.binding
 
-import android.animation.ValueAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import org.dhis2.commons.bindings.dp
 import org.dhis2.form.databinding.FormSectionBinding
 import org.dhis2.form.model.SectionUiModelImpl
 

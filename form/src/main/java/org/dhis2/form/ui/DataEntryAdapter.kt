@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.ListAdapter
 import org.dhis2.commons.bindings.RoundedCornerMode
 import org.dhis2.commons.bindings.clipWithRoundedCorners
 import org.dhis2.commons.bindings.dp
-import org.dhis2.commons.data.EventViewModelType
 import org.dhis2.form.R
 import org.dhis2.form.model.FieldUiModel
 import org.dhis2.form.model.SectionUiModelImpl
@@ -84,15 +83,17 @@ class DataEntryAdapter(private val searchStyle: Boolean) :
 
     private fun updateMargins(holder: FormViewHolder) {
         val (margin, bgColor) = if (
-            searchStyle
-            || getItem(holder.bindingAdapterPosition) is SectionUiModelImpl
-            || currentList.find { it is SectionUiModelImpl } == null
+            searchStyle ||
+            getItem(holder.bindingAdapterPosition) is SectionUiModelImpl ||
+            currentList.find { it is SectionUiModelImpl } == null
         ) {
             Pair(0.dp, R.color.zxing_transparent)
         } else {
             Pair(16.dp, R.color.form_field_background)
         }
-        val radius = if (searchStyle || getItem(holder.bindingAdapterPosition) is SectionUiModelImpl) {
+        val radius = if (
+            searchStyle || getItem(holder.bindingAdapterPosition) is SectionUiModelImpl
+        ) {
             0.dp
         } else {
             8.dp
