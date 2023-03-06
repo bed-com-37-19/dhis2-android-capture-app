@@ -147,12 +147,13 @@ class DataEntryAdapter(private val searchStyle: Boolean) :
         val prevPosition = holderPosition - 1
         val nextPosition = holderPosition + 1
         val isOnlyItem = itemCount == 1
+        val isLastItem = holderPosition == itemCount - 1
         val isAfterSection = prevPosition.takeIf { it >= 0 }?.let {
             isSection(prevPosition)
         } ?: false
         val isBeforeSection = nextPosition.takeIf { it < itemCount }?.let {
             isSection(nextPosition)
-        } ?: false
+        } ?: isLastItem
         return isOnlyItem or (isAfterSection && isBeforeSection)
     }
 
@@ -226,7 +227,7 @@ class DataEntryAdapter(private val searchStyle: Boolean) :
 
     fun isSection(position: Int): Boolean {
         return if (position < itemCount) {
-            getItemViewType(position) == DataEntryViewHolderTypes.SECTION.ordinal
+            getItemViewType(position) == R.layout.form_section
         } else {
             false
         }

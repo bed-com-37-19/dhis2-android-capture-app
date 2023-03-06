@@ -129,6 +129,7 @@ enum class RoundedCornerMode {
     TOP, BOTTOM, LEFT, RIGHT, TOP_RIGHT, TOP_LEFT, BOTTOM_RIGHT, BOTTOM_LEFT, ALL, NONE
 }
 
+@BindingAdapter(value = ["cornerRadius", "cornerRadiusMode"], requireAll = true)
 fun View.clipWithRoundedCorners(
     curvedRadio: Int = 16.dp,
     mode: RoundedCornerMode

@@ -6,6 +6,8 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="org.dhis2.commons.bindings.RoundedCornerMode"/>
+        <import type="org.dhis2.commons.bindings.CommonExtensionsKt"/>
 
         <variable
             name="item"
@@ -21,12 +23,14 @@
             android:id="@+id/sectionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/form_field_background"
+            app:cornerRadius="@{CommonExtensionsKt.getDp(16)}"
+            app:cornerRadiusMode="@{RoundedCornerMode.BOTTOM}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/form_field_background">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
@@ -47,6 +51,7 @@
                 app:cornerRadius="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:textColor="@color/colorPrimary" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,6 +70,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:contentDescription=""
                 app:layout_constraintBottom_toBottomOf="@id/sectionNumber"
                 app:layout_constraintEnd_toEndOf="@id/sectionNumber"
                 app:layout_constraintStart_toStartOf="@id/sectionNumber"
@@ -195,6 +201,7 @@
             <ImageView
                 android:id="@+id/openIndicator"
                 style="@style/ActionIconNoPadding"
+                android:contentDescription=""
                 android:onClick="@{ () -> item.setSelected() }"
                 android:scaleY="@{item.isOpen ? 1f : -1f}"
                 app:animateArrow="@{ item.isSelected() }"

@@ -21,7 +21,7 @@ class DataEntryHeaderHelper(
     private val headerContainer: ViewGroup,
     private val recyclerView: RecyclerView
 ) {
-    private val currentSection = MutableLiveData<SectionUiModelImpl>()
+    private val currentSection = MutableLiveData<SectionUiModelImpl?>()
 
     fun observeHeaderChanges(owner: LifecycleOwner) {
         currentSection.observe(
@@ -46,7 +46,7 @@ class DataEntryHeaderHelper(
 
         if (visiblePos != NO_POSITION && dataEntryAdapter.getSectionSize() > 1) {
             dataEntryAdapter.getSectionForPosition(visiblePos)?.let { headerSection ->
-                if (headerSection.isOpen && !dataEntryAdapter.isSection(visiblePos + 1)) {
+                if (headerSection.isOpen) {
                     if (currentSection.value == null ||
                         currentSection.value!!.uid != headerSection.uid
                     ) {
@@ -77,6 +77,7 @@ class DataEntryHeaderHelper(
             }
             headerContainer.removeAllViews()
             headerContainer.addView(sectionHolder.itemView)
+            headerContainer.invalidate()
             section.setCallback(
                 object : FieldUiModel.Callback {
                     override fun recyclerViewUiEvents(uiEvent: RecyclerViewUiEvents) {
@@ -102,7 +103,7 @@ class DataEntryHeaderHelper(
             }
         } ?: run {
             if (dataEntryAdapter.getSectionSize() > 1) {
-                loadHeader(dataEntryAdapter.getSectionForPosition(0))
+                currentSection.value = dataEntryAdapter.getSectionForPosition(0)
             }
         }
     }
