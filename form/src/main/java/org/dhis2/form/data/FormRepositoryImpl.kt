@@ -97,7 +97,11 @@ class FormRepositoryImpl(
     }
 
     private fun ruleEffects() = try {
-        ruleEngineRepository?.calculate() ?: emptyList()
+        if(formValueStore == null){
+            ruleEngineRepository?.calculate(itemList.associate { it.uid to it.value }) ?: emptyList()
+        }else{
+            ruleEngineRepository?.calculate() ?: emptyList()
+        }
     } catch (e: Exception) {
         emptyList()
     }

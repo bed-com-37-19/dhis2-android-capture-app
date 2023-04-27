@@ -23,7 +23,8 @@ class WebViewActivity : Activity() {
         val binding: ActivityWebviewBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_webview)
 
-        val url = intent?.extras?.getString(WEB_VIEW_URL)
+//        val url = intent?.extras?.getString(WEB_VIEW_URL)
+        val url = "https://www.twitch.tv/mutuamadridopen"
 
         url?.let {
             // Avoid the WebView to automatically redirect to a browser
@@ -42,6 +43,7 @@ class WebViewActivity : Activity() {
             }
 
             binding.webView.settings.javaScriptEnabled = true
+            binding.webView.settings.domStorageEnabled = true
             binding.webView.loadUrl(it)
         }
     }

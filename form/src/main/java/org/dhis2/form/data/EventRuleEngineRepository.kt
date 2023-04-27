@@ -72,7 +72,7 @@ class EventRuleEngineRepository(
             .organisationUnitCode(ou.code())
     }
 
-    override fun calculate(): List<RuleEffect> {
+    override fun calculate(cachedValues:Map<String,String?>): List<RuleEffect> {
         val dataElements = queryDataValues()
         eventBuilder.dataValues(dataElements)
         return try {

@@ -70,7 +70,7 @@ class EnrollmentRuleEngineRepository(
             .programName(program.displayName())
     }
 
-    override fun calculate(): List<RuleEffect> {
+    override fun calculate(cachedValues:Map<String,String?>): List<RuleEffect> {
         val attributes = queryAttributes()
         return try {
             ruleEngine.evaluate(ruleEnrollmentBuilder.attributeValues(attributes).build()).call()

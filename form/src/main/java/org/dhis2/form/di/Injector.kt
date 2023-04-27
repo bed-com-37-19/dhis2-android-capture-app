@@ -18,6 +18,7 @@ import org.dhis2.form.data.RuleEngineRepository
 import org.dhis2.form.data.RulesUtilsProviderImpl
 import org.dhis2.form.data.SearchOptionSetOption
 import org.dhis2.form.data.SearchRepository
+import org.dhis2.form.data.SearchRuleEngineRepository
 import org.dhis2.form.data.metadata.OptionSetConfiguration
 import org.dhis2.form.data.metadata.OrgUnitConfiguration
 import org.dhis2.form.model.EnrollmentRecords
@@ -253,7 +254,7 @@ object Injector {
         return when (entryMode) {
             EntryMode.ATTR -> provideEnrollmentRuleEngineRepository(recordUid!!)
             EntryMode.DE -> provideEventRuleEngineRepository(recordUid!!)
-            else -> null
+            else -> provideSearchRuleEngineRepository(recordUid!!)
         }
     }
 
@@ -262,6 +263,9 @@ object Injector {
 
     private fun provideEventRuleEngineRepository(eventUid: String) =
         EventRuleEngineRepository(provideD2(), eventUid)
+
+    private fun provideSearchRuleEngineRepository(programUid:String) =
+        SearchRuleEngineRepository(provideD2(), programUid)
 
     private fun provideRulesUtilsProvider() = RulesUtilsProviderImpl(provideD2())
 
