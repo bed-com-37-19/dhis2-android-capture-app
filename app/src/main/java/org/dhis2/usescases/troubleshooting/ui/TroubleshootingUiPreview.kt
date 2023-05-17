@@ -1,7 +1,6 @@
 package org.dhis2.usescases.troubleshooting.ui
 
 import android.graphics.Color
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import java.util.Locale
@@ -21,7 +20,6 @@ fun ConfItemPreview() {
     )
 }
 
-@ExperimentalAnimationApi
 @Preview
 @Composable
 fun LanguageSelectorPreview() {
@@ -40,7 +38,6 @@ fun ValidationPassMessagePreview() {
     ValidationPassMessage()
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable
 fun ProgramRuleValidations() {

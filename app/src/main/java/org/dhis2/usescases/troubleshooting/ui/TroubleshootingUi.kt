@@ -2,7 +2,6 @@ package org.dhis2.usescases.troubleshooting.ui
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -27,6 +26,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
@@ -61,7 +61,6 @@ import org.dhis2.usescases.development.RuleValidation
 import org.dhis2.usescases.troubleshooting.TroubleshootingViewModel
 
 @ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun TroubleshootingScreen(
     troubleshootingViewModel: TroubleshootingViewModel,
@@ -166,7 +165,7 @@ fun ConfigurationItem(
     }
 }
 
-@ExperimentalAnimationApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun LanguageSelector(
     currentLocale: Locale,
@@ -257,7 +256,6 @@ fun LanguageSelector(
 }
 
 @ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun ProgramRuleConfigurationItemList(
     modifier: Modifier = Modifier,
@@ -391,7 +389,6 @@ fun ValidationPassMessage() {
     }
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun ProgramRuleConfigurationItem(
     programRuleValidation: ProgramRuleValidation,

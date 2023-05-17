@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import org.dhis2.ui.model.ButtonUiModel
 
 @Composable
@@ -59,6 +60,7 @@ fun Dhis2Button(
     }
 }
 
+@ShowkaseComposable(name = "Text Button", group = "Buttons")
 @Preview
 @Composable
 fun Dhis2TextButtonPreview() {
@@ -72,6 +74,7 @@ fun Dhis2TextButtonPreview() {
     )
 }
 
+@ShowkaseComposable(name = "Simple Button", group = "Buttons")
 @Preview
 @Composable
 fun Dhis2ButtonPreview() {

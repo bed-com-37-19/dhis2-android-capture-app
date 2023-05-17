@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'com.autonomousapps.dependency-analysis' version "1.19.0"
+    id 'kotlin-kapt'
 }
 apply from: "$project.rootDir/jacoco/jacoco.gradle"
 apply plugin: "kotlinx-serialization"
@@ -58,6 +59,7 @@ dependencies {
     implementation libs.androidx.activityCompose
     api libs.androidx.composeConstraintLayout
     implementation libs.androidx.material3
+    api libs.androidx.compose
     api libs.androidx.composePreview
     api libs.androidx.composeUi
     api libs.androidx.composeLiveData
@@ -69,4 +71,7 @@ dependencies {
     testImplementation libs.test.junit
     androidTestImplementation libs.test.testJUnitExt
     androidTestImplementation libs.test.espresso
+
+    implementation "com.airbnb.android:showkase:1.0.0-beta18"
+    kapt "com.airbnb.android:showkase-processor:1.0.0-beta18"
 }

@@ -309,4 +309,7 @@ dependencies {
     implementation(libs.dispatcher.dispatchCore)
     androidTestImplementation(libs.dispatcher.dispatchEspresso)
     testImplementation libs.test.turbine
+
+    implementation "com.airbnb.android:showkase:1.0.0-beta18"
+    kapt "com.airbnb.android:showkase-processor:1.0.0-beta18"
 }

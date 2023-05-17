@@ -2,7 +2,6 @@ package org.dhis2.usescases.searchTrackEntity
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
@@ -123,7 +122,6 @@ fun WrappedSearchButton(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun FullSearchButton(
     modifier: Modifier,
@@ -318,7 +316,6 @@ fun SearchOrCreate() {
     }
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun CreateNewButton(
     modifier: Modifier,
@@ -433,7 +430,6 @@ fun MinAttributesSnackbar(minAttributes: Int) {
     snackScope.launch { snackState.showSnackbar(message) }
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = true, backgroundColor = 0x2C98F0)
 @Composable
 fun SearchFullWidthPreview() {
@@ -448,14 +444,12 @@ fun SearchWrapWidthPreview() {
     }
 }
 
-@ExperimentalAnimationApi
 @Preview
 @Composable
 fun ExtendedCreateNewButtonPreview() {
     CreateNewButton(modifier = Modifier) {}
 }
 
-@ExperimentalAnimationApi
 @Preview
 @Composable
 fun CreateNewButtonPreview() {

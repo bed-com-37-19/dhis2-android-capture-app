@@ -1,7 +1,6 @@
 package org.dhis2.usescases.searchTrackEntity.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
@@ -62,6 +61,7 @@ import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import kotlinx.coroutines.launch
 import org.dhis2.R
 import org.dhis2.commons.resources.ColorUtils
@@ -144,7 +144,6 @@ fun WrappedSearchButton(
     )
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun FullSearchButton(
     modifier: Modifier,
@@ -465,7 +464,6 @@ fun InitSearch(teTypeName: String) {
     }
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun CreateNewButton(
     modifier: Modifier,
@@ -594,7 +592,7 @@ fun MinAttributesSnackbar(minAttributes: Int) {
     snackScope.launch { snackState.showSnackbar(message) }
 }
 
-@ExperimentalAnimationApi
+@ShowkaseComposable(name = "Search full width", group = "Search")
 @Preview(showBackground = true, backgroundColor = 0x2C98F0)
 @Composable
 fun SearchFullWidthPreview() {
@@ -602,6 +600,7 @@ fun SearchFullWidthPreview() {
     }
 }
 
+@ShowkaseComposable(name = "Search wrap", group = "Search")
 @Preview(showBackground = true, backgroundColor = 0x2C98F0)
 @Composable
 fun SearchWrapWidthPreview() {
@@ -609,14 +608,14 @@ fun SearchWrapWidthPreview() {
     }
 }
 
-@ExperimentalAnimationApi
+@ShowkaseComposable(name = "Create new extended", group = "Search")
 @Preview
 @Composable
 fun ExtendedCreateNewButtonPreview() {
     CreateNewButton(modifier = Modifier) {}
 }
 
-@ExperimentalAnimationApi
+@ShowkaseComposable(name = "Create new collapsed", group = "Search")
 @Preview
 @Composable
 fun CreateNewButtonPreview() {

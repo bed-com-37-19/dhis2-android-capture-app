@@ -1,6 +1,5 @@
 package org.dhis2.ui
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.android.showkase.annotation.ShowkaseComposable
 
 @Composable
 fun IconTextButton(
@@ -49,8 +49,8 @@ fun IconTextButton(
     }
 }
 
-@ExperimentalAnimationApi
 @Preview(showBackground = false)
+@ShowkaseComposable(name = "Icon Text Button", group = "Buttons")
 @Composable
 fun IconTextButtonPreview() {
     IconTextButton(

@@ -1,7 +1,6 @@
 package org.dhis2.usescases.eventsWithoutRegistration.eventDetails.ui
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,9 +24,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import org.dhis2.R
 
-@ExperimentalAnimationApi
 @Composable
 fun ReopenButton(visible: Boolean, onReopenClickListener: () -> Unit) {
     AnimatedVisibility(
@@ -64,8 +63,8 @@ fun ReopenButton(visible: Boolean, onReopenClickListener: () -> Unit) {
     }
 }
 
-@ExperimentalAnimationApi
 @Preview
+@ShowkaseComposable(name = "Re-open Button", group = "Buttons")
 @Composable
 fun ReopenButtonPreview() {
     ReopenButton(visible = true) {}

@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +35,6 @@ import org.dhis2.Bindings.buildInfo
 import org.dhis2.R
 import org.dhis2.usescases.login.accounts.AccountModel
 
-@ExperimentalMaterialApi
 @Composable
 fun AccountsScreen(
     accounts: List<AccountModel>,
@@ -121,7 +119,6 @@ fun LoginHeader() {
     }
 }
 
-@ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable
 fun AccountsPreview() {
@@ -136,7 +133,6 @@ fun AccountsPreview() {
         {}
     )
 }
-@ExperimentalMaterialApi
 @Preview(showBackground = true)
 @Composable
 fun FewAccountsPreview() {

@@ -21,10 +21,11 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.android.showkase.annotation.ShowkaseComposable
 import org.dhis2.R
 import org.dhis2.usescases.login.accounts.AccountModel
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AccountItem(
     modifier: Modifier = Modifier,
@@ -72,7 +73,7 @@ fun AccountItem(
     }
 }
 
-@ExperimentalMaterialApi
+@ShowkaseComposable(name = "Account Item", group = "Account")
 @Preview(showBackground = false)
 @Composable
 fun AccountPreview() {
