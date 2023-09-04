@@ -38,7 +38,12 @@ import org.dhis2.form.ui.event.RecyclerViewUiEvents
 import org.dhis2.form.ui.intent.FormIntent
 import org.dhis2.ui.forms.CollapsableState
 import org.dhis2.ui.forms.FormSection
+import org.hisp.dhis.android.core.common.ValueType
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
+import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
+import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
+import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -76,16 +81,16 @@ fun Form(
             val prevItem = items.getOrNull(index - 1)
             val nextItem = items.getOrNull(index + 1)
             val showBottomShadow = (fieldUiModel is SectionUiModelImpl) &&
-                prevItem != null &&
-                prevItem !is SectionUiModelImpl
+                    prevItem != null &&
+                    prevItem !is SectionUiModelImpl
             val sectionNumber = items.count {
                 (it is SectionUiModelImpl) && items.indexOf(it) < index
             } + 1
             val lastSectionHeight = (fieldUiModel is SectionUiModelImpl) &&
-                index > 0 &&
-                index == items.size - 1 &&
-                prevItem != null &&
-                prevItem !is SectionUiModelImpl
+                    index > 0 &&
+                    index == items.size - 1 &&
+                    prevItem != null &&
+                    prevItem !is SectionUiModelImpl
 
             fieldUiModel.updateSectionData(
                 showBottomShadow = showBottomShadow,
@@ -193,22 +198,46 @@ private fun FieldProvider(
     textWatcher: TextWatcher,
     coordinateTextWatcher: LatitudeLongitudeTextWatcher,
 ) {
-    AndroidViewBinding(
-        modifier = modifier.fillMaxWidth(),
-        factory = { inflater, viewgroup, add ->
-            getFieldView(
-                context,
-                inflater,
-                viewgroup,
-                add,
-                fieldUiModel.layoutId,
-                needToForceUpdate,
+    when (fieldUiModel.valueType) {
+        ValueType.TEXT -> {
+            InputText(
+                modifier = Modifier.fillMaxWidth(),
+                title = fieldUiModel.label,
+                state = when {
+                    fieldUiModel.error != null -> InputShellState.ERROR
+                    !fieldUiModel.editable -> InputShellState.DISABLED
+                    fieldUiModel.focused -> InputShellState.FOCUSED
+                    else -> InputShellState.UNFOCUSED
+                },
+                supportingText = mutableListOf<SupportingTextData>().apply {
+                    fieldUiModel.error?.let { add(SupportingTextData(it, SupportingTextState.ERROR)) }
+                    fieldUiModel.warning?.let { add(SupportingTextData(it, SupportingTextState.WARNING)) }
+                    fieldUiModel.description?.let { add(SupportingTextData(it, SupportingTextState.DEFAULT)) }
+                },
+                legendText = fieldUiModel.legend?.label,
+                inputText = fieldUiModel.displayName?:""
             )
-        },
-    ) {
-        this.setVariable(BR.textWatcher, textWatcher)
-        this.setVariable(BR.coordinateWatcher, coordinateTextWatcher)
-        this.setVariable(BR.item, fieldUiModel)
+        }
+
+        else -> {
+            AndroidViewBinding(
+                modifier = modifier.fillMaxWidth(),
+                factory = { inflater, viewgroup, add ->
+                    getFieldView(
+                        context,
+                        inflater,
+                        viewgroup,
+                        add,
+                        fieldUiModel.layoutId,
+                        needToForceUpdate,
+                    )
+                },
+            ) {
+                this.setVariable(BR.textWatcher, textWatcher)
+                this.setVariable(BR.coordinateWatcher, coordinateTextWatcher)
+                this.setVariable(BR.item, fieldUiModel)
+            }
+        }
     }
 }
 
