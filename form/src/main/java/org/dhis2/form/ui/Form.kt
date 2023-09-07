@@ -8,21 +8,28 @@ import android.view.ViewGroup
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyItemScope
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,12 +43,13 @@ import org.dhis2.form.model.FieldUiModel
 import org.dhis2.form.model.SectionUiModelImpl
 import org.dhis2.form.ui.event.RecyclerViewUiEvents
 import org.dhis2.form.ui.intent.FormIntent
-import org.dhis2.ui.forms.CollapsableState
-import org.dhis2.ui.forms.FormSection
 import org.hisp.dhis.android.core.common.ValueType
 import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
+import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
+import org.hisp.dhis.mobile.ui.designsystem.component.SectionHeader
+import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextState
 import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
@@ -59,25 +67,34 @@ fun Form(
     val scrollState = rememberLazyListState()
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val callback = object : FieldUiModel.Callback {
-        override fun intent(intent: FormIntent) {
-            if (intent is FormIntent.OnNext) {
-                scope.launch {
-                    intent.position?.let { scrollState.animateScrollToItem(it + 1) }
+    val callback = remember {
+        object : FieldUiModel.Callback {
+            override fun intent(intent: FormIntent) {
+                if (intent is FormIntent.OnNext) {
+                    scope.launch {
+                        intent.position?.let { scrollState.animateScrollToItem(it + 1) }
+                    }
                 }
+                intentHandler(intent)
             }
-            intentHandler(intent)
-        }
 
-        override fun recyclerViewUiEvents(uiEvent: RecyclerViewUiEvents) {
-            uiEventHandler(uiEvent)
+            override fun recyclerViewUiEvents(uiEvent: RecyclerViewUiEvents) {
+                uiEventHandler(uiEvent)
+            }
         }
     }
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(horizontal = 16.dp),
         state = scrollState,
+        verticalArrangement = spacedBy(24.dp)
     ) {
-        items.forEachIndexed { index, fieldUiModel ->
+        this.itemsIndexed(
+            items = items,
+            key = { _, fieldUiModel -> fieldUiModel.uid }
+        ) { index, fieldUiModel ->
             val prevItem = items.getOrNull(index - 1)
             val nextItem = items.getOrNull(index + 1)
             val showBottomShadow = (fieldUiModel is SectionUiModelImpl) &&
@@ -98,44 +115,41 @@ fun Form(
                 lastSectionHeight = lastSectionHeight,
             )
             fieldUiModel.setCallback(callback)
-            formItem(isSection = fieldUiModel is SectionUiModelImpl, key = fieldUiModel.uid) {
-                if (fieldUiModel is SectionUiModelImpl) {
-                    FormSection(
-                        sectionNumber = sectionNumber,
-                        sectionLabel = fieldUiModel.label,
-                        fieldCount = fieldUiModel.totalFields,
-                        completedFieldCount = fieldUiModel.completedFields,
-                        errorCount = fieldUiModel.errors,
-                        warningCount = fieldUiModel.warnings,
-                        collapsableState = when (fieldUiModel.isOpen) {
-                            true -> CollapsableState.OPENED
-                            false -> CollapsableState.CLOSED
-                            null -> CollapsableState.FIXED
-                        },
-                    ) {
-                        fieldUiModel.setSelected()
-                    }
-                } else {
-                    FieldProvider(
-                        modifier = Modifier.animateItemPlacement(
-                            animationSpec = tween(
-                                durationMillis = 500,
-                                easing = LinearOutSlowInEasing,
-                            ),
+            if (fieldUiModel is SectionUiModelImpl) {
+                SectionHeader(
+                    title = fieldUiModel.label,
+                    description = fieldUiModel.description,
+                    completedFields = fieldUiModel.completedFields,
+                    totalFields = fieldUiModel.totalFields,
+                    sectionState = when (fieldUiModel.isOpen) {
+                        true -> SectionState.OPEN
+                        false -> SectionState.CLOSE
+                        null -> SectionState.FIXED
+                    },
+                    errorCount = fieldUiModel.errors,
+                    warningCount = fieldUiModel.warnings,
+                    onSectionClick = fieldUiModel::setSelected
+                )
+            } else {
+                FieldProvider(
+                    modifier = Modifier.animateItemPlacement(
+                        animationSpec = tween(
+                            durationMillis = 500,
+                            easing = LinearOutSlowInEasing,
                         ),
-                        context = context,
-                        fieldUiModel = fieldUiModel,
-                        needToForceUpdate = needToForceUpdate,
-                        textWatcher = textWatcher,
-                        coordinateTextWatcher = coordinateTextWatcher,
-                    )
-                }
+                    ),
+                    context = context,
+                    fieldUiModel = fieldUiModel,
+                    needToForceUpdate = needToForceUpdate,
+                    textWatcher = textWatcher,
+                    coordinateTextWatcher = coordinateTextWatcher,
+                    uiEventHandler,
+                    intentHandler
+                )
             }
             if (fieldUiModel !is SectionUiModelImpl && nextItem is SectionUiModelImpl) {
-                item {
-                    NextSectionButton {
-                        nextItem.setSelected()
-                    }
+                NextSectionButton {
+                    nextItem.setSelected()
                 }
             }
         }
@@ -172,23 +186,6 @@ private fun FieldUiModel.updateSectionData(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-private fun LazyListScope.formItem(
-    isSection: Boolean,
-    key: String,
-    content: @Composable LazyItemScope.() -> Unit,
-) {
-    if (isSection) {
-        stickyHeader(key = key) {
-            content()
-        }
-    } else {
-        item(key = key) {
-            content()
-        }
-    }
-}
-
 @Composable
 private fun FieldProvider(
     modifier: Modifier,
@@ -197,9 +194,14 @@ private fun FieldProvider(
     needToForceUpdate: Boolean,
     textWatcher: TextWatcher,
     coordinateTextWatcher: LatitudeLongitudeTextWatcher,
+    uiEventHandler: (RecyclerViewUiEvents) -> Unit,
+    intentHandler: (FormIntent) -> Unit,
 ) {
-    when (fieldUiModel.valueType) {
-        ValueType.TEXT -> {
+    when {
+        fieldUiModel.optionSet == null && fieldUiModel.valueType == ValueType.TEXT -> {
+            var value by remember {
+                mutableStateOf(fieldUiModel.value)
+            }
             InputText(
                 modifier = Modifier.fillMaxWidth(),
                 title = fieldUiModel.label,
@@ -210,12 +212,48 @@ private fun FieldProvider(
                     else -> InputShellState.UNFOCUSED
                 },
                 supportingText = mutableListOf<SupportingTextData>().apply {
-                    fieldUiModel.error?.let { add(SupportingTextData(it, SupportingTextState.ERROR)) }
-                    fieldUiModel.warning?.let { add(SupportingTextData(it, SupportingTextState.WARNING)) }
-                    fieldUiModel.description?.let { add(SupportingTextData(it, SupportingTextState.DEFAULT)) }
+                    fieldUiModel.error?.let {
+                        add(
+                            SupportingTextData(
+                                it,
+                                SupportingTextState.ERROR
+                            )
+                        )
+                    }
+                    fieldUiModel.warning?.let {
+                        add(
+                            SupportingTextData(
+                                it,
+                                SupportingTextState.WARNING
+                            )
+                        )
+                    }
+                    fieldUiModel.description?.let {
+                        add(
+                            SupportingTextData(
+                                it,
+                                SupportingTextState.DEFAULT
+                            )
+                        )
+                    }
                 },
-                legendText = fieldUiModel.legend?.label,
-                inputText = fieldUiModel.displayName?:""
+                legendData = fieldUiModel.legend?.let {
+                    LegendData(Color(it.color), it.label ?: "", null)
+                },
+                inputText = value ?: "",
+                onNextClicked = {
+                    intentHandler.invoke(FormIntent.OnNext(fieldUiModel.uid, value))
+                },
+                onValueChanged = {
+                    value = it
+                    intentHandler(
+                        FormIntent.OnSave(
+                            fieldUiModel.uid,
+                            value,
+                            fieldUiModel.valueType
+                        )
+                    )
+                }
             )
         }
 
@@ -232,11 +270,12 @@ private fun FieldProvider(
                         needToForceUpdate,
                     )
                 },
-            ) {
-                this.setVariable(BR.textWatcher, textWatcher)
-                this.setVariable(BR.coordinateWatcher, coordinateTextWatcher)
-                this.setVariable(BR.item, fieldUiModel)
-            }
+                update = {
+                    this.setVariable(BR.textWatcher, textWatcher)
+                    this.setVariable(BR.coordinateWatcher, coordinateTextWatcher)
+                    this.setVariable(BR.item, fieldUiModel)
+                },
+            )
         }
     }
 }
