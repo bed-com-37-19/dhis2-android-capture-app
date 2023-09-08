@@ -22,7 +22,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +39,7 @@ import kotlinx.coroutines.launch
 import org.dhis2.form.BR
 import org.dhis2.form.R
 import org.dhis2.form.model.FieldUiModel
+import org.dhis2.form.model.FieldUiModelImpl
 import org.dhis2.form.model.SectionUiModelImpl
 import org.dhis2.form.ui.event.RecyclerViewUiEvents
 import org.dhis2.form.ui.intent.FormIntent
@@ -48,6 +48,7 @@ import org.hisp.dhis.mobile.ui.designsystem.component.Button
 import org.hisp.dhis.mobile.ui.designsystem.component.InputShellState
 import org.hisp.dhis.mobile.ui.designsystem.component.InputText
 import org.hisp.dhis.mobile.ui.designsystem.component.LegendData
+import org.hisp.dhis.mobile.ui.designsystem.component.Section
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionHeader
 import org.hisp.dhis.mobile.ui.designsystem.component.SectionState
 import org.hisp.dhis.mobile.ui.designsystem.component.SupportingTextData
@@ -58,6 +59,7 @@ import org.hisp.dhis.mobile.ui.designsystem.theme.SurfaceColor
 @Composable
 fun Form(
     items: List<FieldUiModel>,
+    sections:List<Section> = emptyList(),
     intentHandler: (FormIntent) -> Unit,
     uiEventHandler: (RecyclerViewUiEvents) -> Unit,
     textWatcher: TextWatcher,
@@ -91,65 +93,102 @@ fun Form(
         state = scrollState,
         verticalArrangement = spacedBy(24.dp)
     ) {
-        this.itemsIndexed(
-            items = items,
-            key = { _, fieldUiModel -> fieldUiModel.uid }
-        ) { index, fieldUiModel ->
-            val prevItem = items.getOrNull(index - 1)
-            val nextItem = items.getOrNull(index + 1)
-            val showBottomShadow = (fieldUiModel is SectionUiModelImpl) &&
-                    prevItem != null &&
-                    prevItem !is SectionUiModelImpl
-            val sectionNumber = items.count {
-                (it is SectionUiModelImpl) && items.indexOf(it) < index
-            } + 1
-            val lastSectionHeight = (fieldUiModel is SectionUiModelImpl) &&
-                    index > 0 &&
-                    index == items.size - 1 &&
-                    prevItem != null &&
-                    prevItem !is SectionUiModelImpl
 
-            fieldUiModel.updateSectionData(
-                showBottomShadow = showBottomShadow,
-                sectionNumber = sectionNumber,
-                lastSectionHeight = lastSectionHeight,
-            )
-            fieldUiModel.setCallback(callback)
-            if (fieldUiModel is SectionUiModelImpl) {
-                SectionHeader(
-                    title = fieldUiModel.label,
-                    description = fieldUiModel.description,
-                    completedFields = fieldUiModel.completedFields,
-                    totalFields = fieldUiModel.totalFields,
-                    sectionState = when (fieldUiModel.isOpen) {
-                        true -> SectionState.OPEN
-                        false -> SectionState.CLOSE
-                        null -> SectionState.FIXED
-                    },
-                    errorCount = fieldUiModel.errors,
-                    warningCount = fieldUiModel.warnings,
-                    onSectionClick = fieldUiModel::setSelected
-                )
-            } else {
-                FieldProvider(
-                    modifier = Modifier.animateItemPlacement(
-                        animationSpec = tween(
-                            durationMillis = 500,
-                            easing = LinearOutSlowInEasing,
-                        ),
-                    ),
-                    context = context,
-                    fieldUiModel = fieldUiModel,
-                    needToForceUpdate = needToForceUpdate,
-                    textWatcher = textWatcher,
-                    coordinateTextWatcher = coordinateTextWatcher,
-                    uiEventHandler,
-                    intentHandler
-                )
+        if(sections.isNotEmpty()){
+            this.itemsIndexed(
+                items = sections,
+                key = { _, fieldUiModel -> fieldUiModel.uid }
+            ) { index, section ->
+                Section(
+                    title = section.title,
+                    description = section.description,
+                    completedFields = section.completedFields(),
+                    totalFields = section.fields.size,
+                    state = section.state,
+                    errorCount = section.errorCount(),
+                    warningCount = section.warningCount(),
+                    onNextSection = { /*TODO*/ },
+                    content = {
+                        section.fields.forEach { fieldUiModel ->
+                            FieldProvider(
+                                modifier = Modifier.animateItemPlacement(
+                                    animationSpec = tween(
+                                        durationMillis = 500,
+                                        easing = LinearOutSlowInEasing,
+                                    ),
+                                ),
+                                context = context,
+                                fieldUiModel = fieldUiModel,
+                                needToForceUpdate = needToForceUpdate,
+                                textWatcher = textWatcher,
+                                coordinateTextWatcher = coordinateTextWatcher,
+                                uiEventHandler = uiEventHandler,
+                                intentHandler = intentHandler
+                            )
+                        }
+                    })
             }
-            if (fieldUiModel !is SectionUiModelImpl && nextItem is SectionUiModelImpl) {
-                NextSectionButton {
-                    nextItem.setSelected()
+        }else{
+            this.itemsIndexed(
+                items = items,
+                key = { _, fieldUiModel -> fieldUiModel.uid }
+            ) { index, fieldUiModel ->
+                val prevItem = items.getOrNull(index - 1)
+                val nextItem = items.getOrNull(index + 1)
+                val showBottomShadow = (fieldUiModel is SectionUiModelImpl) &&
+                        prevItem != null &&
+                        prevItem !is SectionUiModelImpl
+                val sectionNumber = items.count {
+                    (it is SectionUiModelImpl) && items.indexOf(it) < index
+                } + 1
+                val lastSectionHeight = (fieldUiModel is SectionUiModelImpl) &&
+                        index > 0 &&
+                        index == items.size - 1 &&
+                        prevItem != null &&
+                        prevItem !is SectionUiModelImpl
+
+                fieldUiModel.updateSectionData(
+                    showBottomShadow = showBottomShadow,
+                    sectionNumber = sectionNumber,
+                    lastSectionHeight = lastSectionHeight,
+                )
+                fieldUiModel.setCallback(callback)
+                if (fieldUiModel is SectionUiModelImpl) {
+                    SectionHeader(
+                        title = fieldUiModel.label,
+                        description = fieldUiModel.description,
+                        completedFields = fieldUiModel.completedFields,
+                        totalFields = fieldUiModel.totalFields,
+                        sectionState = when (fieldUiModel.isOpen) {
+                            true -> SectionState.OPEN
+                            false -> SectionState.CLOSE
+                            null -> SectionState.FIXED
+                        },
+                        errorCount = fieldUiModel.errors,
+                        warningCount = fieldUiModel.warnings,
+                        onSectionClick = fieldUiModel::setSelected
+                    )
+                } else {
+                    FieldProvider(
+                        modifier = Modifier.animateItemPlacement(
+                            animationSpec = tween(
+                                durationMillis = 500,
+                                easing = LinearOutSlowInEasing,
+                            ),
+                        ),
+                        context = context,
+                        fieldUiModel = fieldUiModel,
+                        needToForceUpdate = needToForceUpdate,
+                        textWatcher = textWatcher,
+                        coordinateTextWatcher = coordinateTextWatcher,
+                        uiEventHandler,
+                        intentHandler
+                    )
+                }
+                if (fieldUiModel !is SectionUiModelImpl && nextItem is SectionUiModelImpl) {
+                    NextSectionButton {
+                        nextItem.setSelected()
+                    }
                 }
             }
         }
@@ -306,4 +345,16 @@ private fun getFieldView(
         }
 
     return DataBindingUtil.inflate(layoutInflater, layoutId, viewgroup, add)
+}
+
+data class Section(
+    val uid: String,
+    val title: String,
+    val description: String,
+    val state: SectionState,
+    val fields: List<FieldUiModelImpl>
+) {
+    fun completedFields() = fields.count { it.value != null }
+    fun errorCount() = fields.count { it.error != null }
+    fun warningCount() = fields.count { it.error != null }
 }
