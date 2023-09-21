@@ -94,7 +94,9 @@ fun ActivityResultLauncher<Intent>.navigateTo(context: Context, homeItemData: Ho
             }
 
         is HomeItemData.TrackerProgram -> {
-            if (homeItemData.stockConfig != null) {
+            if (isStudentAttendance(homeItemData.uid)) {
+                val attendance = studentAttendanceUseCase(homeItemData.uid)
+            } else if (homeItemData.stockConfig != null) {
                 Intent(context, HomeActivity::class.java).apply {
                     putExtra(
                         org.dhis2.android.rtsm.commons.Constants.INTENT_EXTRA_APP_CONFIG,
@@ -111,4 +113,20 @@ fun ActivityResultLauncher<Intent>.navigateTo(context: Context, homeItemData: Ho
             }
         }
     }
+
+
+
 }
+
+fun isStudentAttendance(uid: String) = uid == studentAttendance.programUid
+
+fun studentAttendanceUseCase(uid: String) = studentAttendance
+
+
+val studentAttendance = StudentAttendanceUseCase(
+    programUid = "PqbAI6WeFzE",
+    url = "",
+    description = "",
+    programType = "student",
+    assistance = "YwOO2MKNtPL",
+)
