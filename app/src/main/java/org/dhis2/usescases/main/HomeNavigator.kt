@@ -3,9 +3,9 @@ package org.dhis2.usescases.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
+import android.os.StrictMode
 import androidx.activity.result.ActivityResultLauncher
-import dalvik.system.DexClassLoader
-import org.dhis2.R
 import org.dhis2.android.rtsm.data.AppConfig
 import org.dhis2.android.rtsm.ui.home.HomeActivity
 import org.dhis2.commons.Constants
@@ -17,6 +17,8 @@ import org.hisp.dhis.android.core.program.ProgramType
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 sealed class HomeItemData(
     open val uid: String,
@@ -100,42 +102,39 @@ fun ActivityResultLauncher<Intent>.navigateTo(context: Context, homeItemData: Ho
 
         is HomeItemData.TrackerProgram -> {
             if (isStudentAttendance(homeItemData.uid)) {
-                val attendance = studentAttendanceUseCase(homeItemData.uid)
-
-                // Define the directory where you want to extract the DEX file
-                val dexOutputDir = context.getDir("dex", Context.MODE_PRIVATE).absolutePath
-
-// Get the input stream of the AAR file from the raw resources
-                val aarInputStream: InputStream = context.resources.openRawResource(R.raw.mylibrary_debug)
-                val aarFile = File(dexOutputDir, "mylibrary_debug.aar") // Adjust the file name as needed
-
-// Copy the AAR file from resources to the internal storage
-                val fos = FileOutputStream(aarFile)
-                val buffer = ByteArray(1024)
-                var length: Int
-                while (aarInputStream.read(buffer).also { length = it } > 0) {
-                    fos.write(buffer, 0, length)
+                val aarUrl = "https://raw.githubusercontent.com/Sharmyn28/host-files/main/designsystem-android-1.0-20230919.064725-40.aar"
+                val aarFileName = "designsystem-android-1.0-20230919.064725-40.aar" // Specify the desired file name
+                // Create a directory in external storage to save the AAR file
+                val aarDirectory = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "aar")
+                if (!aarDirectory.exists()) {
+                    aarDirectory.mkdirs()
                 }
-                fos.close()
-                aarInputStream.close()
-                val classLoader = context.classLoader
-
-// Create a DexClassLoader instance
-                val dexClassLoader = DexClassLoader(
-                    aarFile.absolutePath, // Path to the AAR file in internal storage
-                    dexOutputDir, // Directory to store extracted DEX files
-                    null, // Library search path (set to null if not needed)
-                    classLoader // Parent class loader
-                )
-
-                val loadedClass = dexClassLoader.loadClass("org.dhis2.mylibrary.MainActivityPOC")
-
-                // Replace "org.dhis2.mylibrary.MainActivityPOC" with the correct class name
-
-                // Now you can use the loadedClass to access methods and instantiate objects.
-                // For example:
-                val instance = loadedClass.newInstance()
-
+                val aarFile = File(aarDirectory, aarFileName)
+                val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+                StrictMode.setThreadPolicy(policy)
+                try {
+                    val url = URL(aarUrl)
+                    val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connect()
+                    if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                        val inputStream: InputStream = connection.inputStream
+                        val fileOutputStream = FileOutputStream(aarFile)
+                        val buffer = ByteArray(1024)
+                        var len: Int
+                        while (inputStream.read(buffer).also { len = it } != -1) {
+                            fileOutputStream.write(buffer, 0, len)
+                        }
+                        fileOutputStream.close()
+                        inputStream.close()
+                    } else {
+                        // Handle the HTTP error
+                        // e.g., connection.responseCode contains the HTTP status code
+                    }
+                } catch (e: Exception) {
+                    // Handle exceptions
+                    e.printStackTrace()
+                }
             } else if (homeItemData.stockConfig != null) {
                 Intent(context, HomeActivity::class.java).apply {
                     putExtra(
