@@ -53,6 +53,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="allowBackup"
         tools:targetApi="s">
+        <activity
+            android:name=".usescases.main.DynamicModuleActivity"/>
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

@@ -218,7 +218,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     implementation(project(":viewpagerdotsindicator"))
     implementation(project(":dhis_android_analytics"))
     implementation(project(":form"))
