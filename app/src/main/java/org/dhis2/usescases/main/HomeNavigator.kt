@@ -1,11 +1,13 @@
 package org.dhis2.usescases.main
 
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.StrictMode
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.ContextCompat.getSystemService
 import org.dhis2.android.rtsm.data.AppConfig
 import org.dhis2.android.rtsm.ui.home.HomeActivity
 import org.dhis2.commons.Constants
@@ -14,11 +16,6 @@ import org.dhis2.usescases.main.program.ProgramViewModel
 import org.dhis2.usescases.programEventDetail.ProgramEventDetailActivity
 import org.dhis2.usescases.searchTrackEntity.SearchTEActivity
 import org.hisp.dhis.android.core.program.ProgramType
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
 
 sealed class HomeItemData(
     open val uid: String,
@@ -102,39 +99,18 @@ fun ActivityResultLauncher<Intent>.navigateTo(context: Context, homeItemData: Ho
 
         is HomeItemData.TrackerProgram -> {
             if (isStudentAttendance(homeItemData.uid)) {
-                val aarUrl = "https://raw.githubusercontent.com/Sharmyn28/host-files/main/designsystem-android-1.0-20230919.064725-40.aar"
-                val aarFileName = "designsystem-android-1.0-20230919.064725-40.aar" // Specify the desired file name
-                // Create a directory in external storage to save the AAR file
-                val aarDirectory = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "aar")
-                if (!aarDirectory.exists()) {
-                    aarDirectory.mkdirs()
-                }
-                val aarFile = File(aarDirectory, aarFileName)
-                val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-                StrictMode.setThreadPolicy(policy)
-                try {
-                    val url = URL(aarUrl)
-                    val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    connection.connect()
-                    if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-                        val inputStream: InputStream = connection.inputStream
-                        val fileOutputStream = FileOutputStream(aarFile)
-                        val buffer = ByteArray(1024)
-                        var len: Int
-                        while (inputStream.read(buffer).also { len = it } != -1) {
-                            fileOutputStream.write(buffer, 0, len)
-                        }
-                        fileOutputStream.close()
-                        inputStream.close()
-                    } else {
-                        // Handle the HTTP error
-                        // e.g., connection.responseCode contains the HTTP status code
-                    }
-                } catch (e: Exception) {
-                    // Handle exceptions
-                    e.printStackTrace()
-                }
+                val url = "https://raw.githubusercontent.com/Sharmyn28/host-files/main/designsystem-android-1.0-20230919.064725-40.aar"
+                val fileName = "designsystem-android-1.0-20230919.064725-40.aar"
+                val request = DownloadManager.Request(Uri.parse(url))
+                    .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+                    .setTitle(fileName)
+                    .setDescription("")
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setAllowedOverMetered(true)
+                    .setAllowedOverRoaming(false)
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,fileName)
+                val downloadManager = getSystemService(context, DownloadManager::class.java) as DownloadManager
+                downloadManager.enqueue(request)
             } else if (homeItemData.stockConfig != null) {
                 Intent(context, HomeActivity::class.java).apply {
                     putExtra(
