@@ -64,16 +64,16 @@ class WorkManagerControllerImpl(private val workManager: WorkManager) : WorkMana
         val workerOneBuilder = OneTimeWorkRequest.Builder(SyncMetadataWorker::class.java)
         workerOneBuilder
             .addTag(metadataWorkerTag)
-            .setConstraints(
+            /*.setConstraints(
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
+            )*/
 
         val workerTwoBuilder = OneTimeWorkRequest.Builder(SyncDataWorker::class.java)
         workerTwoBuilder
             .addTag(dataWorkerTag)
-            .setConstraints(
+            /*.setConstraints(
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
+            )*/
 
         workManager
             .beginUniqueWork(workName, ExistingWorkPolicy.KEEP, workerOneBuilder.build())
@@ -85,9 +85,9 @@ class WorkManagerControllerImpl(private val workManager: WorkManager) : WorkMana
         val workerOneBuilder = OneTimeWorkRequest.Builder(SyncMetadataWorker::class.java)
         workerOneBuilder
             .addTag(metadataWorkerTag)
-            .setConstraints(
+            /*.setConstraints(
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
+            )*/
 
         workManager
             .beginUniqueWork(workName, ExistingWorkPolicy.KEEP, workerOneBuilder.build())
@@ -98,9 +98,9 @@ class WorkManagerControllerImpl(private val workManager: WorkManager) : WorkMana
         val workerTwoBuilder = OneTimeWorkRequest.Builder(SyncDataWorker::class.java)
         workerTwoBuilder
             .addTag(dataWorkerTag)
-            .setConstraints(
+            /*.setConstraints(
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
+            )*/
 
         workManager
             .beginUniqueWork(workName, ExistingWorkPolicy.KEEP, workerTwoBuilder.build())
@@ -163,9 +163,9 @@ class WorkManagerControllerImpl(private val workManager: WorkManager) : WorkMana
 
         syncBuilder.apply {
             addTag(workerItem.workerName)
-            setConstraints(
+            /*setConstraints(
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
+            )*/
             workerItem.delayInSeconds?.let {
                 setInitialDelay(it, TimeUnit.SECONDS)
             }
@@ -218,9 +218,9 @@ class WorkManagerControllerImpl(private val workManager: WorkManager) : WorkMana
 
         syncBuilder.apply {
             addTag(workerItem.workerName)
-            setConstraints(
+            /*setConstraints(
                 Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-            )
+            )*/
             workerItem.data?.let {
                 setInputData(it)
             }
