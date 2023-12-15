@@ -1,5 +1,6 @@
 package org.dhis2.android.rtsm.services
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import io.reactivex.Single
@@ -74,7 +75,12 @@ class StockManagerImpl @Inject constructor(
             .eq(RepositoryScope.OrderByDirection.ASC)
             .also { teiRepository = it }
 
-        val dataSource: DataSource<TrackedEntityInstance, StockItem> = teiRepository.dataSource
+        val teiList = teiRepository.blockingGet()
+            .filter { it.deleted() == null || !it.deleted()!! }
+            .map { transform(it, config) }
+
+
+        /*val dataSource: DataSource<TrackedEntityInstance, StockItem> = teiRepository.dataSource
             .mapByPage { filterDeleted(it.toMutableList()) }
             .mapByPage { transform(it, config) }
 
@@ -87,19 +93,17 @@ class StockManagerImpl @Inject constructor(
             },
             Constants.ITEM_PAGE_SIZE,
         )
-            .build()
+            .build()*/
 
-        return SearchResult(pagedList, totalCount)
+        return SearchResult(teiList)
     }
 
-    private fun transform(teis: List<TrackedEntityInstance>, config: AppConfig): List<StockItem> {
-        return teis.map { tei ->
-            StockItem(
+    private fun transform(tei: TrackedEntityInstance, config: AppConfig): StockItem {
+        return StockItem(
                 tei.uid(),
                 AttributeHelper.teiAttributeValueByAttributeUid(tei, config.itemName) ?: "",
                 getStockOnHand(tei, config.stockOnHand) ?: "",
             )
-        }
     }
 
     private fun getStockOnHand(tei: TrackedEntityInstance, stockOnHandUid: String): String? {

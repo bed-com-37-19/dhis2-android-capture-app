@@ -223,7 +223,7 @@ class SyncPresenterImpl(
                     .andThen(
                         if (!globalSettings.smsResultSender().isNullOrEmpty()) {
                             d2.smsModule().configCase()
-                                .setConfirmationSenderNumber(globalSettings.smsResultSender())
+                                .setConfirmationSenderNumber(globalSettings.smsResultSender()?: "")
                         } else {
                             Completable.complete()
                         },

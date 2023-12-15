@@ -43,7 +43,7 @@ class SettingsRepository(
             null
         }
     private val smsConfig: ConfigCase.SmsConfig
-        get() = d2.smsModule().configCase().smsModuleConfig.blockingGet()
+        get() = d2.smsModule().configCase().smsModuleConfig().blockingGet()
 
     fun dataSync(): Single<DataSettingsViewModel> {
         return Single.just(
@@ -107,8 +107,8 @@ class SettingsRepository(
         return Single.just(
             SMSSettingsViewModel(
                 smsConfig.isModuleEnabled,
-                smsConfig.gateway,
-                smsConfig.resultSender,
+                smsConfig.gateway ?: "",
+                smsConfig.resultSender ?: "",
                 smsConfig.resultWaitingTimeout,
                 generalSettings?.smsGateway() == null,
                 generalSettings?.smsResultSender() == null,

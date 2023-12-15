@@ -13,7 +13,7 @@ hiltCompiler = '1.0.0'
 jacoco = '0.8.10'
 
 designSystem = "1.0-20231116.084101-124"
-dhis2sdk = "1.9.0"
+dhis2sdk = "1.9.1-1789-20231214.140445-2"
 ruleEngine = "2.1.9"
 appcompat = "1.6.1"
 annotation = "1.6.0"
@@ -97,6 +97,7 @@ rxrelay = "2.1.1"
 preference_ktx = "1.2.1"
 uiautomator = "2.2.0"
 maplibre = "10.2.0"
+paging-compose = "3.2.1"
 
 [libraries]
 gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
@@ -142,6 +143,7 @@ androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterfa
 androidx-preferenceKtx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference_ktx" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-dynamicanimation = { group = "androidx.dynamicanimation", name = "dynamicanimation", version.ref = "dynamicanimation" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
 
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxserialization" }
 
@@ -256,7 +258,8 @@ deprecated-autoValueParcel = { group = "com.ryanharter.auto.value", name = "auto
 uicomponents-implementation = ["androidx-coreKtx", "androidx-appcompat", "androidx-activity-compose",
     "androidx-material3", "google-material", "lottie-compose", "dhis2-mobile-designsystem"]
 uicomponents-api = ["dhis2-mobile-designsystem", "androidx-compose-constraintlayout", "androidx-compose-preview",
-    "androidx-compose-ui", "androidx-compose-viewbinding", "androidx-compose-livedata", "google-material-themeadapter", "google-material3-themeadapter"]
+    "androidx-compose-ui", "androidx-compose-viewbinding", "androidx-compose-livedata", "google-material-themeadapter", "google-material3-themeadapter",
+    "androidx-paging-compose"]
 uicomponents-debugapi = ["androidx-compose-uitooling"]
 uicomponents-test = ["test-junit"]
 uicomponents-androidtest = ["test-junit-ext", "test-espresso"]
@@ -278,7 +281,7 @@ table-androidTest = ["test-compose-ui-test", "test-uiautomator", "test-junitKtx"
 stock-implementation = ["kotlin-serialization-json", "androidx-activity-compose", "androidx-annotation",
     "androidx-legacy-support-v4", "androidx-constraintlayout", "rx-relay", "security-openId", "androidx-preferenceKtx",
     "androidx-work", "androidx-work-runtimeKtx", "androidx-workrx", "androidx-workgcm", "androidx-activityKtx", "androidx-fragmentKtx",
-    "androidx-lifecycle-viewmodel-compose", "analytics-customactivityoncrash", "dagger-hilt-android"]
+    "androidx-lifecycle-viewmodel-compose", "analytics-customactivityoncrash", "dagger-hilt-android", "androidx-paging-compose"]
 stock-core = ["desugar"]
 stock-kapt = ["dagger-hilt-compiler-new"]
 stock-debugImplementation = ["analytics-flipper", "analytics-soloader"]

@@ -249,7 +249,7 @@ public class SmsSendingService extends Service {
                 reportState(State.SENDING, state.getSent(), state.getTotal());
             }
         }).ignoreElements().doOnComplete(() -> reportState(State.SENT, 0, 0)).andThen(
-                d2.smsModule().configCase().getSmsModuleConfig()
+                d2.smsModule().configCase().smsModuleConfig()
         ).flatMapCompletable(config -> {
             if (config.isWaitingForResult()) {
                 reportState(State.WAITING_RESULT, 0, 0);

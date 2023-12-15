@@ -5,9 +5,14 @@ import android.database.sqlite.SQLiteConstraintException;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
+import androidx.paging.Pager;
+import androidx.paging.PagingData;
+import androidx.paging.PagingLiveData;
+import androidx.paging.PagingSource;
 
 import org.dhis2.R;
 import org.dhis2.bindings.ExtensionsKt;
@@ -97,6 +102,7 @@ import dhis2.org.analytics.charts.Charts;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import kotlinx.coroutines.flow.Flow;
 
 public class SearchRepositoryImpl implements SearchRepository {
 
@@ -183,7 +189,28 @@ public class SearchRepositoryImpl implements SearchRepository {
             trackedEntityInstanceQuery = trackedEntityInstanceQuery.excludeUids().in(new ArrayList<>(fetchedTeiUids));
         }
 
+        Pager<TrackedEntitySearchItem, TrackedEntitySearchItem> pager;
         DataSource<TrackedEntitySearchItem, SearchTeiModel> dataSource;
+        pager = trackedEntityInstanceQuery.allowOnlineCache().eq(allowCache).offlineFirst()
+                .getPager(15);
+
+
+
+        /*if (isOnline && FilterManager.getInstance().getStateFilters().isEmpty()) {
+
+            pagingSource = trackedEntityInstanceQuery.allowOnlineCache().eq(allowCache).offlineFirst()
+                    .getPagingData(15);
+            Transformations.map(
+                    PagingLiveData.getLiveData(pagingSource),
+                    pagingData -> {
+
+                    }
+                    )
+                    .map(result -> transformResult(result, searchParametersModel.getSelectedProgram(), false, FilterManager.getInstance().getSortingItem()));
+        } else {
+            dataSource = trackedEntityInstanceQuery.allowOnlineCache().eq(allowCache).offlineOnly().getResultDataSource()
+                    .map(result -> transformResult(result, searchParametersModel.getSelectedProgram(), true, FilterManager.getInstance().getSortingItem()));
+        }*/
 
         if (isOnline && FilterManager.getInstance().getStateFilters().isEmpty()) {
             dataSource = trackedEntityInstanceQuery.allowOnlineCache().eq(allowCache).offlineFirst().getResultDataSource()

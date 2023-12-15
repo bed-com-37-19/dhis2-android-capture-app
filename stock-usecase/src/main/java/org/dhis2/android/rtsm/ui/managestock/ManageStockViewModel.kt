@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
+import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.jakewharton.rxrelay2.PublishRelay
@@ -175,7 +176,7 @@ class ManageStockViewModel @Inject constructor(
         }
     }
 
-    private fun getStockItems() = search.switchMap { q ->
+    private fun getStockItems() = search.map { q ->
         val result =
             stockManagerRepository.search(q, transaction.value?.facility?.uid, config.value!!)
 
