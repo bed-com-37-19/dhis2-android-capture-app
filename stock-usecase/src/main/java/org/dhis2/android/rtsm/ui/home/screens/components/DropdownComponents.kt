@@ -61,7 +61,7 @@ fun DropdownComponentTransactions(
     settingsUiState: SettingsUiState,
     onTransitionSelected: (transition: TransactionItem) -> Unit,
     hasUnsavedData: Boolean,
-    themeColor: Color = colorResource(R.color.colorPrimary),
+    themeColor: Color = colorResource(org.dhis2.commons.R.color.colorPrimary),
     launchDialog: (msg: Int, (result: EditionDialogResult) -> Unit) -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -80,7 +80,7 @@ fun DropdownComponentTransactions(
     val icon = if (isExpanded) {
         painterResource(id = R.drawable.ic_arrow_drop_up)
     } else {
-        painterResource(id = R.drawable.ic_arrow_drop_down)
+        painterResource(id = org.dhis2.commons.R.drawable.ic_arrow_drop_down)
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -177,7 +177,7 @@ fun DropdownComponentTransactions(
                                 .fillMaxSize()
                                 .background(
                                     color = if (selectedIndex == index) {
-                                        colorResource(R.color.bg_gray_f1f)
+                                        colorResource(org.dhis2.commons.R.color.bg_gray_f1f)
                                     } else {
                                         Color.White
                                     },
@@ -207,7 +207,7 @@ fun DropdownComponentFacilities(
     settingsUiState: SettingsUiState,
     onFacilitySelected: (facility: OrganisationUnit) -> Unit,
     hasUnsavedData: Boolean,
-    themeColor: Color = colorResource(R.color.colorPrimary),
+    themeColor: Color = colorResource(org.dhis2.commons.R.color.colorPrimary),
     supportFragmentManager: FragmentManager,
     data: List<OrganisationUnit>,
     launchDialog: (msg: Int, (result: EditionDialogResult) -> Unit) -> Unit,
@@ -273,7 +273,7 @@ fun DropdownComponentFacilities(
                     },
                 ) {
                     Icon(
-                        painterResource(id = R.drawable.ic_arrow_drop_down),
+                        painterResource(id = org.dhis2.commons.R.drawable.ic_arrow_drop_down),
                         contentDescription = null,
                         tint = themeColor,
                     )
@@ -297,7 +297,7 @@ fun DropdownComponentFacilities(
 fun DropdownComponentDistributedTo(
     onDestinationSelected: (destination: Option) -> Unit,
     dataEntryUiState: DataEntryUiState,
-    themeColor: Color = colorResource(R.color.colorPrimary),
+    themeColor: Color = colorResource(org.dhis2.commons.R.color.colorPrimary),
     data: List<Option>,
     isDestinationSelected: (value: String) -> Unit = { },
     deliverToLabel: String? = null,
@@ -319,7 +319,7 @@ fun DropdownComponentDistributedTo(
     val icon = if (isExpanded) {
         painterResource(id = R.drawable.ic_arrow_drop_up)
     } else {
-        painterResource(id = R.drawable.ic_arrow_drop_down)
+        painterResource(id = org.dhis2.commons.R.drawable.ic_arrow_drop_down)
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -431,7 +431,7 @@ fun DropdownComponentDistributedTo(
                                 .fillMaxSize()
                                 .background(
                                     color = if (selectedIndex == index) {
-                                        colorResource(R.color.bg_gray_f1f)
+                                        colorResource(org.dhis2.commons.R.color.bg_gray_f1f)
                                     } else {
                                         Color.White
                                     },

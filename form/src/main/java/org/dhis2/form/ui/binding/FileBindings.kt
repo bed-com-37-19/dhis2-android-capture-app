@@ -45,7 +45,7 @@ fun ComposeView.addFile(fieldUiModel: FieldUiModel) {
                 }
                 FileInput(
                     fileInputData = fileInputData,
-                    addFileLabel = stringResource(id = R.string.add_file),
+                    addFileLabel = stringResource(id = org.dhis2.commons.R.string.add_file),
                     enabled = fieldUiModel.editable,
                     onAddFile = {
                         fieldUiModel.invokeUiEvent(UiEventType.ADD_FILE)

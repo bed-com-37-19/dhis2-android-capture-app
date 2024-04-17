@@ -133,7 +133,7 @@ private fun getProgramDrawable(
         Timber.log(1, e)
         iconImage = AppCompatResources.getDrawable(
             context,
-            R.drawable.ic_default_outline,
+            org.hisp.dhis.android.R.drawable.ic_default_outline,
         )
         iconImage!!.mutate()
     }

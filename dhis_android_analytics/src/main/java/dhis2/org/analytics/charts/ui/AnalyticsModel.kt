@@ -423,7 +423,7 @@ data class ChartModel(val graph: Graph) : AnalyticsModel(graph.visualizationUid 
                         showVisualizationOptions(view)
                     }
 
-                    R.id.none -> {
+                    androidx.appcompat.R.id.none -> {
                         orgUnitCallback?.invoke(OrgUnitFilterType.NONE, lineListingColumnId)
                     }
 

@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel: HomeViewModel by viewModels()
     private val manageStockViewModel: ManageStockViewModel by viewModels()
-    private var themeColor = R.color.colorPrimary
+    private var themeColor = org.dhis2.commons.R.color.colorPrimary
     private lateinit var filterManager: FilterManager
     private lateinit var barcodeLauncher: ActivityResultLauncher<ScanOptions>
 
@@ -99,8 +99,8 @@ class HomeActivity : AppCompatActivity() {
 
         when (type) {
             TransactionType.DISTRIBUTION -> {
-                color = R.color.colorPrimary
-                theme = R.style.AppTheme
+                color = org.dhis2.commons.R.color.colorPrimary
+                theme = org.dhis2.commons.R.style.AppTheme
             }
             TransactionType.DISCARD -> {
                 color = R.color.discard_color
@@ -117,7 +117,7 @@ class HomeActivity : AppCompatActivity() {
             val window = window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             val typedValue = TypedValue()
-            val a = obtainStyledAttributes(typedValue.data, intArrayOf(R.attr.colorPrimaryDark))
+            val a = obtainStyledAttributes(typedValue.data, intArrayOf(androidx.constraintlayout.widget.R.attr.colorPrimaryDark))
             val colorToReturn = a.getColor(0, 0)
             a.recycle()
             window.statusBarColor = colorToReturn

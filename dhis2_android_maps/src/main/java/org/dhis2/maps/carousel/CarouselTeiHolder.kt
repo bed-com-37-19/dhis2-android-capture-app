@@ -106,7 +106,7 @@ class CarouselTeiHolder(
             ) {
                 Toast.makeText(
                     itemView.context,
-                    itemView.context.getString(R.string.record_marked_for_deletion),
+                    itemView.context.getString(org.dhis2.commons.R.string.record_marked_for_deletion),
                     Toast.LENGTH_SHORT,
                 ).show()
             } else {

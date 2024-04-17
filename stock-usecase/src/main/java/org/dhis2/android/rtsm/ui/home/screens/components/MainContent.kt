@@ -74,9 +74,9 @@ fun MainContent(
     val scope = rememberCoroutineScope()
     val resource = painterResource(R.drawable.ic_arrow_up)
     val qrcodeResource = painterResource(R.drawable.ic_qr_code_scanner)
-    val resetResize = painterResource(id = R.drawable.ic_restart_alt)
-    val searchResource = painterResource(R.drawable.ic_search)
-    val closeResource = painterResource(R.drawable.ic_close)
+    val resetResize = painterResource(id = org.dhis2.composetable.R.drawable.ic_restart_alt)
+    val searchResource = painterResource(org.dhis2.commons.R.drawable.ic_search)
+    val closeResource = painterResource(org.dhis2.commons.R.drawable.ic_close)
     var closeButtonVisibility by remember { mutableStateOf(0f) }
     val weightValue = if (backdropState.isRevealed) 0.15f else 0.10f
     val weightValueArrow = if (backdropState.isRevealed) 0.10f else 0.05f

@@ -71,13 +71,13 @@ internal fun ProvideYesNoRadioButtonInput(
             uid = "true",
             selected = fieldUiModel.isAffirmativeChecked,
             enabled = true,
-            textInput = resources.getString(R.string.yes),
+            textInput = resources.getString(org.dhis2.commons.R.string.yes),
         ),
         RadioButtonData(
             uid = "false",
             selected = fieldUiModel.isNegativeChecked,
             enabled = true,
-            textInput = resources.getString(R.string.no),
+            textInput = resources.getString(org.dhis2.commons.R.string.no),
         ),
     )
 

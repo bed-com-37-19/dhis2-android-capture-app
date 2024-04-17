@@ -16,7 +16,7 @@ class GraphToValue {
     fun map(context: Context, graph: Graph): View {
         if (graph.series.isEmpty()) {
             return TextView(context).apply {
-                text = context.getString(R.string.no_data)
+                text = context.getString(org.dhis2.commons.R.string.no_data)
             }
         }
         return LinearLayout(context).apply {
@@ -42,7 +42,7 @@ class GraphToValue {
                             singleValueLegend.setBackgroundColor(coordinate?.legendValue.color)
                         } else {
                             singleValueLegend.setBackgroundColor(
-                                (ContextCompat.getColor(context, R.color.gray_e7e)),
+                                (ContextCompat.getColor(context, org.dhis2.commons.R.color.gray_e7e)),
                             )
                         }
                     }.root,

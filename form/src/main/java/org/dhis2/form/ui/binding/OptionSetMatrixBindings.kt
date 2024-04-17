@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.card.MaterialCardView
+import org.dhis2.commons.R.*
 import org.dhis2.commons.bindings.clipWithAllRoundedCorners
 import org.dhis2.commons.bindings.dp
 import org.dhis2.commons.resources.ColorUtils
@@ -25,11 +26,11 @@ fun ImageView.setOptionImage(option: Option) {
         ObjectStyleUtils.getIconResource(
             context,
             option.style().icon(),
-            R.drawable.ic_default_icon,
+            org.dhis2.commons.R.drawable.ic_default_icon,
             ColorUtils(),
         )
     val color =
-        ObjectStyleUtils.getColorResource(context, option.style().color(), R.color.colorPrimary)
+        ObjectStyleUtils.getColorResource(context, option.style().color(), color.colorPrimary)
     iconDrawable?.let {
         setImageDrawable(ColorUtils().tintDrawableReosurce(iconDrawable, color))
     }
@@ -40,7 +41,7 @@ fun ImageView.setOptionImage(option: Option) {
 @BindingAdapter(value = ["optionSelectionModel", "optionSelectionOption"], requireAll = true)
 fun View.setOptionSelection(field: FieldUiModel, option: Option) {
     val color =
-        ObjectStyleUtils.getColorResource(context, option.style().color(), R.color.colorPrimary)
+        ObjectStyleUtils.getColorResource(context, option.style().color(), color.colorPrimary)
     val isSelected = field.displayName == option.displayName()
     when (this) {
         is MaterialCardView -> {

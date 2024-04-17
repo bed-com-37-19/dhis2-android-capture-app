@@ -81,11 +81,11 @@ fun ProvideInputAge(
             state = fieldUiModel.inputState(),
             supportingText = fieldUiModel.supportingText(),
             isRequired = fieldUiModel.mandatory,
-            dateOfBirthLabel = resources.getString(R.string.date_birth),
-            orLabel = resources.getString(R.string.or),
-            ageLabel = resources.getString(R.string.age),
-            cancelText = resources.getString(R.string.cancel),
-            acceptText = resources.getString(R.string.ok),
+            dateOfBirthLabel = resources.getString(org.hisp.dhis.mobile.ui.designsystem.R.string.date_birth),
+            orLabel = resources.getString(org.hisp.dhis.mobile.ui.designsystem.R.string.or),
+            ageLabel = resources.getString(org.hisp.dhis.mobile.ui.designsystem.R.string.age),
+            cancelText = resources.getString(org.dhis2.commons.R.string.cancel),
+            acceptText = resources.getString(org.hisp.dhis.mobile.ui.designsystem.R.string.ok),
             onValueChanged = { ageInputType ->
                 inputType = ageInputType
                 when (val type = inputType) {

@@ -77,13 +77,13 @@ internal fun ProvideYesNoCheckBoxInput(
             uid = "true",
             checked = fieldUiModel.isAffirmativeChecked,
             enabled = true,
-            textInput = resources.getString(R.string.yes),
+            textInput = resources.getString(org.dhis2.commons.R.string.yes),
         ),
         CheckBoxData(
             uid = "false",
             checked = fieldUiModel.isNegativeChecked,
             enabled = true,
-            textInput = resources.getString(R.string.no),
+            textInput = resources.getString(org.dhis2.commons.R.string.no),
         ),
     )
 

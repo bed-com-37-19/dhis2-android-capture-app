@@ -135,7 +135,7 @@ fun Toolbar(
                     },
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_sync),
+                        painter = painterResource(org.dhis2.commons.R.drawable.ic_sync),
                         contentDescription = null,
                         tint = colorResource(id = R.color.white),
                     )

@@ -1,4 +1,7 @@
 <resources>
+
+    <color name="colorPrimary">#3498DB</color>
+
     <style name="ErrorActivityTheme" parent="AppTheme">
         <item name="colorAccent">@color/text_black_4d4d4d</item>
     </style>
@@ -21,6 +24,7 @@
         <item name="colorControlNormal">@color/textPrimary</item>
         <item name="android:textColor">@color/textPrimary</item>
         <item name="colorControlActivated">?colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="searchFormInputText" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge"><!--parent="TextAppearance.AppCompat"-->

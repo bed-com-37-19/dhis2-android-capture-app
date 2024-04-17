@@ -185,7 +185,7 @@ fun ManageStockTable(
             }
         } else {
             Text(
-                text = stringResource(id = R.string.no_data),
+                text = stringResource(id = org.dhis2.commons.R.string.no_data),
                 modifier = Modifier.padding(16.dp),
             )
         }

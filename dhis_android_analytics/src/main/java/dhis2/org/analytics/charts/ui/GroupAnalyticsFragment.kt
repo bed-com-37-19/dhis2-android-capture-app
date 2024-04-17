@@ -173,11 +173,11 @@ class GroupAnalyticsFragment : Fragment() {
         AlertBottomDialog.instance
             .setTitle(getString(R.string.include_this_period_title))
             .setMessage(getString(R.string.include_this_period_body))
-            .setNegativeButton(getString(R.string.no)) {
+            .setNegativeButton(getString(org.dhis2.commons.R.string.no)) {
                 relativePeriod?.let { periodList.add(relativePeriod) }
                 groupViewModel.filterByPeriod(chartModel, periodList, lineListingColumnId)
             }
-            .setPositiveButton(getString(R.string.yes)) {
+            .setPositiveButton(getString(org.dhis2.commons.R.string.yes)) {
                 relativePeriod?.let { periodList.add(relativePeriod) }
                 current?.let { periodList.add(current) }
                 groupViewModel.filterByPeriod(chartModel, periodList, lineListingColumnId)

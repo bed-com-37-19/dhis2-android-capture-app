@@ -39,7 +39,7 @@ class MapLayerDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+        setStyle(STYLE_NORMAL, org.dhis2.ui.R.style.CustomBottomSheetDialogTheme)
     }
 
     override fun onCreateView(
@@ -124,7 +124,7 @@ class MapLayerDialog(
                 is EnrollmentMapLayer -> layerMap["ENROLLMENT"]?.add(
                     addCheckBox(
                         source,
-                        requireContext().getString(R.string.dialog_layer_enrollment_coordinates_v2), // TODO:5894 programUid not available
+                        requireContext().getString(org.dhis2.commons.R.string.dialog_layer_enrollment_coordinates_v2), // TODO:5894 programUid not available
                         MapLayerManager.ENROLLMENT_ICON_ID,
                     ),
                 )

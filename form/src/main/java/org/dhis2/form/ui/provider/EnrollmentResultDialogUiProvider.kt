@@ -23,7 +23,7 @@ class EnrollmentResultDialogUiProvider(val resourceManager: ResourceManager) {
                     val model = BottomSheetDialogUiModel(
                         title = getString(R.string.not_saved),
                         message = getErrorSubtitle(result.allowDiscard),
-                        iconResource = R.drawable.ic_error_outline,
+                        iconResource = org.dhis2.ui.R.drawable.ic_error_outline,
                         mainButton = DialogButtonStyle.MainButton(R.string.review),
                         secondaryButton = when {
                             result.allowDiscard -> DialogButtonStyle.DiscardButton()
@@ -41,7 +41,7 @@ class EnrollmentResultDialogUiProvider(val resourceManager: ResourceManager) {
                     val model = BottomSheetDialogUiModel(
                         title = getString(R.string.saved),
                         message = getString(R.string.review_message),
-                        iconResource = R.drawable.ic_warning_alert,
+                        iconResource = org.dhis2.ui.R.drawable.ic_warning_alert,
                         mainButton = DialogButtonStyle.MainButton(R.string.review),
                         secondaryButton = DialogButtonStyle.SecondaryButton(R.string.not_now),
                     )
@@ -53,7 +53,7 @@ class EnrollmentResultDialogUiProvider(val resourceManager: ResourceManager) {
                     val model = BottomSheetDialogUiModel(
                         title = getString(R.string.not_saved),
                         message = getMandatorySubtitle(result.allowDiscard),
-                        iconResource = R.drawable.ic_error_outline,
+                        iconResource = org.dhis2.ui.R.drawable.ic_error_outline,
 
                         mainButton = DialogButtonStyle.MainButton(
                             when {
@@ -76,7 +76,7 @@ class EnrollmentResultDialogUiProvider(val resourceManager: ResourceManager) {
                     val model = BottomSheetDialogUiModel(
                         title = getString(R.string.not_saved),
                         message = getString(R.string.discard_go_back),
-                        iconResource = R.drawable.ic_warning_alert,
+                        iconResource = org.dhis2.ui.R.drawable.ic_warning_alert,
                         mainButton = DialogButtonStyle.MainButton(R.string.keep_editing),
                         secondaryButton = DialogButtonStyle.DiscardButton(),
                     )

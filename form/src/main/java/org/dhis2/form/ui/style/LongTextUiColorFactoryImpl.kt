@@ -24,7 +24,7 @@ class LongTextUiColorFactoryImpl(
             FormUiColorType.ERROR to
                 ContextCompat.getColor(context, R.color.error_color),
             FormUiColorType.ACTION_ICON to
-                ContextCompat.getColor(context, R.color.colorGreyDefault),
+                ContextCompat.getColor(context, org.dhis2.commons.R.color.colorGreyDefault),
         )
     }
 }

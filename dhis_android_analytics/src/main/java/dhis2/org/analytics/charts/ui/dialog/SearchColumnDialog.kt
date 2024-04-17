@@ -128,7 +128,7 @@ fun SearchColumnInput(
                 modifier = Modifier.padding(horizontal = Spacing.Spacing4),
                 icon = {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_search),
+                        painter = painterResource(id = org.dhis2.commons.R.drawable.ic_search),
                         tint = SurfaceColor.Primary,
                         contentDescription = "",
                     )

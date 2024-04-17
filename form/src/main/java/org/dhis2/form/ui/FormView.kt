@@ -537,19 +537,19 @@ class FormView : Fragment() {
     }
 
     private fun showLoopWarning() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.DhisMaterialDialog)
+        MaterialAlertDialogBuilder(requireContext(), org.dhis2.commons.R.style.DhisMaterialDialog)
             .setTitle(getString(R.string.program_rules_loop_warning_title))
             .setMessage(getString(R.string.program_rules_loop_warning_message))
-            .setPositiveButton(R.string.action_accept) { _, _ -> }
+            .setPositiveButton(org.dhis2.commons.R.string.action_accept) { _, _ -> }
             .setCancelable(false)
             .show()
     }
 
     private fun displayCoordinatesPermissionDeclined() {
-        MaterialAlertDialogBuilder(requireContext(), R.style.DhisMaterialDialog)
-            .setTitle(getString(R.string.info))
+        MaterialAlertDialogBuilder(requireContext(), org.dhis2.commons.R.style.DhisMaterialDialog)
+            .setTitle(getString(org.dhis2.commons.R.string.info))
             .setMessage(getString(R.string.location_permission_denied))
-            .setPositiveButton(R.string.action_accept) { _, _ ->
+            .setPositiveButton(org.dhis2.commons.R.string.action_accept) { _, _ ->
                 val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 intent.data = Uri.fromParts("package", requireActivity().packageName, null)
                 permissionSettings.launch(intent)
@@ -795,7 +795,7 @@ class FormView : Fragment() {
         intent.date?.let { calendar.time = it }
         val is24HourFormat = DateFormat.is24HourFormat(requireContext())
         MaterialTimePicker.Builder()
-            .setTheme(R.style.TimePicker)
+            .setTheme(org.dhis2.commons.R.style.TimePicker)
             .setTimeFormat(CLOCK_24H.takeIf { is24HourFormat } ?: CLOCK_12H)
             .setHour(calendar[Calendar.HOUR_OF_DAY])
             .setMinute(calendar[Calendar.MINUTE])
@@ -827,9 +827,9 @@ class FormView : Fragment() {
         monthPicker.setText(intent.month.toString())
         dayPicker.setText(intent.day.toString())
 
-        MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialDialog)
+        MaterialAlertDialogBuilder(requireActivity(), org.dhis2.commons.R.style.MaterialDialog)
             .setView(alertDialogView)
-            .setPositiveButton(R.string.action_accept) { _, _ ->
+            .setPositiveButton(org.dhis2.commons.R.string.action_accept) { _, _ ->
                 val dateIntent = dialogDelegate.handleYearMonthDayInput(
                     intent.uid,
                     negativeOrZero(yearPicker.text.toString()),
@@ -838,7 +838,7 @@ class FormView : Fragment() {
                 )
                 intentHandler(dateIntent)
             }
-            .setNegativeButton(R.string.clear) { _, _ ->
+            .setNegativeButton(org.dhis2.ui.R.string.clear) { _, _ ->
                 val clearIntent = FormIntent.ClearValue(intent.uid)
                 intentHandler(clearIntent)
             }
@@ -951,10 +951,10 @@ class FormView : Fragment() {
         val options = arrayOf<CharSequence>(
             requireContext().getString(R.string.take_photo),
             requireContext().getString(R.string.from_gallery),
-            requireContext().getString(R.string.cancel),
+            requireContext().getString(org.dhis2.commons.R.string.cancel),
         )
-        MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialDialog)
-            .setTitle(requireContext().getString(R.string.select_option))
+        MaterialAlertDialogBuilder(requireActivity(), org.dhis2.commons.R.style.MaterialDialog)
+            .setTitle(requireContext().getString(org.dhis2.commons.R.string.select_option))
             .setOnCancelListener {
                 viewModel.getFocusedItemUid()?.let {
                     viewModel.submitIntent(FormIntent.OnAddImageFinished(it))
@@ -981,7 +981,7 @@ class FormView : Fragment() {
                             pickImage.launch(Intent(Intent.ACTION_PICK).apply { type = "image/*" })
                         }
 
-                        requireContext().getString(R.string.cancel) -> {
+                        requireContext().getString(org.dhis2.commons.R.string.cancel) -> {
                             viewModel.getFocusedItemUid()?.let {
                                 viewModel.submitIntent(FormIntent.OnAddImageFinished(it))
                             }
@@ -1023,7 +1023,7 @@ class FormView : Fragment() {
                     file.observe(viewLifecycleOwner) {
                         Toast.makeText(
                             requireContext(),
-                            getString(R.string.file_downladed),
+                            getString(org.dhis2.commons.R.string.file_downladed),
                             Toast.LENGTH_SHORT,
                         ).show()
                     }
@@ -1079,7 +1079,7 @@ class FormView : Fragment() {
         configurationError: List<RulesUtilsProviderConfigurationError>,
     ) {
         if (displayConfErrors && configurationError.isNotEmpty()) {
-            MaterialAlertDialogBuilder(requireContext(), R.style.DhisMaterialDialog)
+            MaterialAlertDialogBuilder(requireContext(), org.dhis2.commons.R.style.DhisMaterialDialog)
                 .setTitle(R.string.warning_error_on_complete_title)
                 .setMessage(configurationError.toMessage(requireContext()))
                 .setPositiveButton(

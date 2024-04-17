@@ -16,7 +16,7 @@ class GraphToPieChart {
             description.isEnabled = false
             setDrawEntryLabels(false)
             setUsePercentValues(true)
-            setEntryLabelColor(ContextCompat.getColor(context, R.color.textPrimary))
+            setEntryLabelColor(ContextCompat.getColor(context, org.dhis2.commons.R.color.textPrimary))
             setEntryLabelTextSize(11f)
             holeRadius = 0f
             transparentCircleRadius = 0f
@@ -51,7 +51,7 @@ class GraphToPieChart {
         pieChart.data = GraphToPieData().map(graph, serieToHighlight)
             .withGlobalStyle(
                 PercentageValueFormatter(pieChart),
-                ContextCompat.getColor(pieChart.context, R.color.textPrimary),
+                ContextCompat.getColor(pieChart.context, org.dhis2.commons.R.color.textPrimary),
             )
     }
 }

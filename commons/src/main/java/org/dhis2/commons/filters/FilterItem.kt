@@ -104,7 +104,7 @@ data class PeriodFilter(
     }
 
     override fun icon(): Int {
-        return R.drawable.ic_calendar_positive
+        return org.hisp.dhis.android.R.drawable.ic_calendar_positive
     }
 }
 
@@ -129,7 +129,7 @@ data class EnrollmentDateFilter(
     }
 
     override fun icon(): Int {
-        return R.drawable.ic_calendar_positive
+        return org.hisp.dhis.android.R.drawable.ic_calendar_positive
     }
 
     fun observePeriod(): ObservableField<Int> {

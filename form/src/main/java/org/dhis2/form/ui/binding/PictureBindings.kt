@@ -45,13 +45,13 @@ fun ComposeView.setPicture(fieldUiModel: FieldUiModel) {
                     when (fieldUiModel.renderingType != UiRenderType.CANVAS) {
                         true -> AddButtonData(
                             onClick = { fieldUiModel.invokeUiEvent(UiEventType.ADD_PICTURE) },
-                            icon = painterResource(id = R.drawable.ic_add_image),
-                            label = stringResource(id = R.string.add_image),
+                            icon = painterResource(id = org.dhis2.ui.R.drawable.ic_add_image),
+                            label = stringResource(id = org.dhis2.commons.R.string.add_image),
                         )
                         false -> AddButtonData(
                             onClick = { fieldUiModel.invokeUiEvent(UiEventType.ADD_SIGNATURE) },
                             icon = painterResource(id = R.drawable.ic_signature),
-                            label = stringResource(id = R.string.add_signature),
+                            label = stringResource(id = org.dhis2.commons.R.string.add_signature),
                         )
                     },
                     onClick = { fieldUiModel.invokeUiEvent(UiEventType.SHOW_PICTURE) },

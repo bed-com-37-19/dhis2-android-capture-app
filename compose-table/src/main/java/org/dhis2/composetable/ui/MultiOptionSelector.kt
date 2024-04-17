@@ -27,8 +27,8 @@ fun MultiOptionSelector(
             )
         },
         title = title,
-        noResultsFoundString = stringResource(R.string.no_results_found),
-        doneButtonText = stringResource(id = R.string.done),
+        noResultsFoundString = stringResource(org.hisp.dhis.mobile.ui.designsystem.R.string.no_results_found),
+        doneButtonText = stringResource(id = org.hisp.dhis.mobile.ui.designsystem.R.string.done),
         onItemsSelected = { checkBoxes ->
             val checkedCodes = checkBoxes
                 .filter { item -> item.checked }

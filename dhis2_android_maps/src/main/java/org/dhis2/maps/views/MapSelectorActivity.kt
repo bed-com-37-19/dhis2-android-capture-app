@@ -128,7 +128,7 @@ class MapSelectorActivity :
         binding.saveButton.setContent {
             Button(
                 style = ButtonStyle.FILLED,
-                text = resources.getString(R.string.done),
+                text = resources.getString(org.hisp.dhis.mobile.ui.designsystem.R.string.done),
                 onClick = { onSaveButtonClick?.invoke() },
             )
         }
@@ -241,7 +241,7 @@ class MapSelectorActivity :
             viewModel.source!!,
             viewModel.layer!!,
             viewModel.getId(),
-            R.drawable.maplibre_marker_icon_default,
+            com.mapbox.mapboxsdk.R.drawable.maplibre_marker_icon_default,
         )
     }
 
@@ -376,7 +376,7 @@ class MapSelectorActivity :
                     style.addSource(GeoJsonSource(sourceName, Polygon.fromLngLats(points)))
                     style.addLayerBelow(
                         FillLayer(sourceName, sourceName).withProperties(
-                            fillColor(ContextCompat.getColor(this, R.color.green_7ed)),
+                            fillColor(ContextCompat.getColor(this, org.dhis2.commons.R.color.green_7ed)),
                         ),
                         "settlement-label",
                     )

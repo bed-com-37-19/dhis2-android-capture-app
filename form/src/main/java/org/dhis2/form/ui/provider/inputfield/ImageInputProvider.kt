@@ -40,7 +40,7 @@ internal fun ProvideInputImage(
         state = fieldUiModel.inputState(),
         supportingText = fieldUiModel.supportingText(),
         legendData = fieldUiModel.legend(),
-        addImageBtnText = resources.getString(R.string.add_image),
+        addImageBtnText = resources.getString(org.dhis2.commons.R.string.add_image),
         isRequired = fieldUiModel.mandatory,
         uploadState = uploadState,
         painterFor = { remember { it!! } },

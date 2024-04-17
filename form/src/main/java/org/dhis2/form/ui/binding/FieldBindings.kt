@@ -140,10 +140,10 @@ fun TextInputLayout.setInputLayoutStyle(style: FormUiModelStyle?) {
 @BindingAdapter("warning", "error")
 fun TextView.setWarningOrError(warning: String?, error: String?) {
     if (warning != null) {
-        TextViewCompat.setTextAppearance(this, R.style.warning_appearance)
+        TextViewCompat.setTextAppearance(this, org.dhis2.commons.R.style.warning_appearance)
         this.text = warning
     } else if (error != null) {
-        TextViewCompat.setTextAppearance(this, R.style.error_appearance)
+        TextViewCompat.setTextAppearance(this, org.dhis2.commons.R.style.error_appearance)
         this.text = error
     }
 }
@@ -152,11 +152,11 @@ fun TextView.setWarningOrError(warning: String?, error: String?) {
 fun TextInputLayout.setWarningErrorMessage(warning: String?, error: String?) {
     when {
         error != null -> {
-            setErrorTextAppearance(R.style.error_appearance)
+            setErrorTextAppearance(org.dhis2.commons.R.style.error_appearance)
             this.error = error
         }
         warning != null -> {
-            setErrorTextAppearance(R.style.warning_appearance)
+            setErrorTextAppearance(org.dhis2.commons.R.style.warning_appearance)
             this.error = warning
         }
         else -> this.error = null

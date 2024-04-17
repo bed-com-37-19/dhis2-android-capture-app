@@ -69,7 +69,7 @@ class CarouselProgramEventHolder(
         binding.showValuesButtonContainer.visibility = View.INVISIBLE
         binding.dataElementListGuideline.visibility = View.INVISIBLE
         binding.dataElementList.visibility = View.GONE
-        binding.dataValue.text = itemView.context.getString(R.string.no_data)
+        binding.dataValue.text = itemView.context.getString(org.dhis2.commons.R.string.no_data)
         binding.showValuesButtonContainer.setOnClickListener(null)
     }
 
@@ -110,9 +110,9 @@ class CarouselProgramEventHolder(
                         SpannableString(nameValuePair.val1())
                     val colorToUse =
                         if (dataElementValues.indexOf(nameValuePair) % 2 == 0) {
-                            ContextCompat.getColor(itemView.context, R.color.textPrimary)
+                            ContextCompat.getColor(itemView.context, org.dhis2.commons.R.color.textPrimary)
                         } else {
-                            ContextCompat.getColor(itemView.context, R.color.secondaryColor)
+                            ContextCompat.getColor(itemView.context, org.dhis2.commons.R.color.secondaryColor)
                         }
                     value.setSpan(
                         ForegroundColorSpan(colorToUse),

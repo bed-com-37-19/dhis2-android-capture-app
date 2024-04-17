@@ -106,9 +106,9 @@ private fun DialogTitle(title: String) {
     Text(
         text = title,
         style = TextStyle(
-            color = colorResource(id = R.color.text_black_333),
+            color = colorResource(id = org.dhis2.commons.R.color.text_black_333),
             fontSize = 20.sp,
-            fontFamily = FontFamily(Font(R.font.rubik_regular)),
+            fontFamily = FontFamily(Font(org.dhis2.commons.R.font.rubik_regular)),
         ),
     )
 }
@@ -146,7 +146,7 @@ private fun SearchBar(
                 Box(Modifier.weight(1f)) {
                     if (searchValue.isEmpty()) {
                         Text(
-                            text = stringResource(id = R.string.search),
+                            text = stringResource(id = org.hisp.dhis.mobile.ui.designsystem.R.string.search),
                             style = LocalTextStyle.current.copy(
                                 color = MaterialTheme.colors.onSurface.copy(alpha = 0.3f),
                                 fontSize = 16.sp,
@@ -186,9 +186,9 @@ private fun OptionList(options: List<Option>, onOptionClick: (code: String?) -> 
                 Text(
                     text = option.displayName() ?: option.uid(),
                     style = TextStyle(
-                        color = colorResource(id = R.color.text_black_333),
+                        color = colorResource(id = org.dhis2.commons.R.color.text_black_333),
                         fontSize = 14.sp,
-                        fontFamily = FontFamily(Font(R.font.rubik_regular)),
+                        fontFamily = FontFamily(Font(org.dhis2.commons.R.font.rubik_regular)),
                     ),
                 )
             }
@@ -205,11 +205,11 @@ private fun DialogButtonActions(onClearClick: () -> Unit, onCancelClick: () -> U
         horizontalArrangement = Arrangement.End,
     ) {
         TextButton(onClick = onClearClick) {
-            Text(text = stringResource(id = R.string.clear).uppercase())
+            Text(text = stringResource(id = org.dhis2.commons.R.string.clear).uppercase())
         }
         Spacer(modifier = Modifier.size(8.dp))
         TextButton(onClick = onCancelClick) {
-            Text(text = stringResource(id = R.string.cancel).uppercase())
+            Text(text = stringResource(id = org.dhis2.commons.R.string.cancel).uppercase())
         }
     }
 }

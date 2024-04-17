@@ -114,7 +114,7 @@ private fun getOverdueIcon(isActive: Boolean) = when (isActive) {
 }
 
 private fun getCompletedIcon(isActive: Boolean) = when (isActive) {
-    true -> R.drawable.ic_event_status_complete
+    true -> org.dhis2.ui.R.drawable.ic_event_status_complete
     false -> R.drawable.ic_event_status_complete_read
 }
 
@@ -133,7 +133,7 @@ fun ImageView.setEventWithoutRegistrationStatusIcon(event: ProgramEventViewModel
     val drawableResource: Int = when (event.eventStatus()) {
         EventStatus.COMPLETED ->
             if (event.canBeEdited()) {
-                R.drawable.ic_event_status_complete
+                org.dhis2.ui.R.drawable.ic_event_status_complete
             } else {
                 R.drawable.ic_event_status_complete_read
             }

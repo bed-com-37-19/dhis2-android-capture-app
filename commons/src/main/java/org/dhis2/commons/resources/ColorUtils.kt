@@ -176,8 +176,8 @@ enum class ColorType {
 
 fun Context.getPrimaryColor(colorType: ColorType): Int {
     val id = when (colorType) {
-        ColorType.ACCENT -> R.attr.colorAccent
-        ColorType.PRIMARY_DARK -> R.attr.colorPrimaryDark
+        ColorType.ACCENT -> androidx.appcompat.R.attr.colorAccent
+        ColorType.PRIMARY_DARK -> com.google.android.material.composethemeadapter.R.attr.colorPrimaryDark
         ColorType.PRIMARY_LIGHT -> R.attr.colorPrimaryLight
         ColorType.PRIMARY -> R.attr.colorPrimary
         else -> R.attr.colorPrimary

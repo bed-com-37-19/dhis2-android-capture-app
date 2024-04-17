@@ -28,11 +28,11 @@ fun ImageView.setActionIcon(model: FieldUiModel) {
 fun TextInputLayout.setErrorMessage(errorMessage: String?, warningMessage: String?) {
     error = when {
         errorMessage != null -> {
-            setErrorTextAppearance(R.style.error_appearance)
+            setErrorTextAppearance(org.dhis2.commons.R.style.error_appearance)
             errorMessage
         }
         warningMessage != null -> {
-            setErrorTextAppearance(R.style.warning_appearance)
+            setErrorTextAppearance(org.dhis2.commons.R.style.warning_appearance)
             warningMessage
         }
         else -> null

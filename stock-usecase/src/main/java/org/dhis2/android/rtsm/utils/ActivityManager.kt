@@ -78,7 +78,7 @@ class ActivityManager {
             messageRes: String,
             confirmationCallback: () -> Unit,
         ) {
-            MaterialAlertDialogBuilder(context, R.style.MaterialDialog)
+            MaterialAlertDialogBuilder(context, org.dhis2.commons.R.style.MaterialDialog)
                 .setMessage(messageRes)
                 .setTitle(titleRes)
                 .setPositiveButton(android.R.string.ok) { _, _ -> confirmationCallback() }

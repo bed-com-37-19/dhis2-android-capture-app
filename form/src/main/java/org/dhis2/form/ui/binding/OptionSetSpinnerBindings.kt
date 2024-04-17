@@ -31,7 +31,7 @@ private fun showOptions(view: View, field: FieldUiModel) {
         is OptionSetConfiguration.BigOptionSet ->
             field.invokeUiEvent(UiEventType.OPTION_SET)
         is OptionSetConfiguration.DefaultOptionSet ->
-            ListPopupWindow(view.context, null, R.attr.listPopupWindowStyle).apply {
+            ListPopupWindow(view.context, null, androidx.appcompat.R.attr.listPopupWindowStyle).apply {
                 anchorView = view
                 val list = optionSetConfig.optionsToDisplay().map { it.displayName() }
                 val adapter = ArrayAdapter(view.context, R.layout.pop_up_menu_item, list)

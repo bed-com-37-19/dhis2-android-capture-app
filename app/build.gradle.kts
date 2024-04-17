@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 plugins {
+
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
@@ -18,6 +19,44 @@ repositories {
 
 android {
 
+    compileSdk = 34
+
+    defaultConfig {
+
+        // Required when setting minSdkVersion to 20 or lower.
+        multiDexEnabled = true
+
+
+    }
+    compileOptions {
+        // Flag to enable support for API desugaring.
+        isCoreLibraryDesugaringEnabled = true
+
+        // Sets Java compatibility to Java 8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    defaultConfig {
+        // Required when setting minSdkVersion to 20 or lower
+        multiDexEnabled = true
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+
+        // For AGP 4.1+
+        isCoreLibraryDesugaringEnabled = true
+        // For AGP 4.0
+        // coreLibraryDesugaringEnabled = true
+
+        // Sets Java compatibility to Java 8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
     val getBuildDate by extra {
         fun(): String {
             return SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date())
@@ -218,6 +257,9 @@ android {
 }
 
 dependencies {
+    val nav_version = "2.7.7"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":viewpagerdotsindicator"))
     implementation(project(":dhis_android_analytics"))
@@ -307,4 +349,10 @@ dependencies {
     androidTestImplementation(libs.test.compose.ui.test)
     androidTestImplementation(libs.test.hamcrest)
     androidTestImplementation(libs.dispatcher.dispatchEspresso)
+
+    dependencies {
+        // ... other dependencies ...
+        coreLibraryDesugaring (libs.desugar.jdk.libs.v204)
+    }
+
 }

@@ -73,7 +73,7 @@ QRDetailBottomDialog(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
+        setStyle(STYLE_NORMAL, org.dhis2.ui.R.style.CustomBottomSheetDialogTheme)
     }
 
     override fun onAttach(context: Context) {
@@ -221,7 +221,7 @@ QRDetailBottomDialog(
                             file.observe(viewLifecycleOwner) {
                                 Toast.makeText(
                                     requireContext(),
-                                    getString(R.string.file_downladed),
+                                    getString(org.dhis2.commons.R.string.file_downladed),
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             }

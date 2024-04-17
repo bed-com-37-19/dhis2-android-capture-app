@@ -1,11 +1,12 @@
 [versions]
+desugar_jdk_libsVersion = "2.0.4"
 ndk = "21.4.7075529"
 sdk = "34"
 minSdk = "21"
 vCode = "130"
 vName = "2.10-DEV"
 kotlinCompilerExtensionVersion = "1.5.6"
-gradle = "8.2.2"
+gradle = "8.3.1"
 kotlin = '1.9.21'
 hilt = '2.47'
 hiltCompiler = '1.0.0'
@@ -96,6 +97,7 @@ preference_ktx = "1.2.1"
 uiautomator = "2.2.0"
 maplibre = "10.2.0"
 [libraries]
+desugar_jdk_libs-v204 = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libsVersion" }
 gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
 kotlinPlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinSerialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }

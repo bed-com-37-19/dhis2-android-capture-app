@@ -44,7 +44,7 @@ internal fun ProvideInputFileResource(
         title = fieldUiModel.label,
         inputShellState = fieldUiModel.inputState(),
         supportingText = fieldUiModel.supportingText(),
-        buttonText = resources.getString(R.string.add_file),
+        buttonText = resources.getString(org.dhis2.commons.R.string.add_image),
         uploadFileState = uploadState,
         fileName = fileInputData?.fileName,
         fileWeight = fileInputData?.fileSizeLabel,
