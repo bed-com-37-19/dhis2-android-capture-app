@@ -45,18 +45,6 @@ android {
         multiDexEnabled = true
     }
 
-    compileOptions {
-        // Flag to enable support for the new language APIs
-
-        // For AGP 4.1+
-        isCoreLibraryDesugaringEnabled = true
-        // For AGP 4.0
-        // coreLibraryDesugaringEnabled = true
-
-        // Sets Java compatibility to Java 8
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     val getBuildDate by extra {
         fun(): String {
             return SimpleDateFormat("yyyy-MM-dd HH:mm").format(Date())
@@ -350,9 +338,6 @@ dependencies {
     androidTestImplementation(libs.test.hamcrest)
     androidTestImplementation(libs.dispatcher.dispatchEspresso)
 
-    dependencies {
-        // ... other dependencies ...
-        coreLibraryDesugaring (libs.desugar.jdk.libs.v204)
-    }
-
+    coreLibraryDesugaring (libs.desugar.jdk.libs.v204)
+    
 }
